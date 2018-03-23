@@ -4,6 +4,9 @@ import Home from './pages/Home.vue'
 import Login from './pages/account/Login.vue'
 import ForgetPassword from './pages/account/ForgetPassword.vue'
 import Register from './pages/account/Register.vue'
+import GiftList from './pages/scoreMall/GiftList.vue'
+import GiftDetail from './pages/scoreMall/GiftDetail.vue'
+import ExchangeRecord from './pages/scoreMall/ExchangeRecord'
 
 Vue.use(Router)
 
@@ -13,28 +16,49 @@ const routes=[ {
   name: 'home',
   component: Home,
   meta:{
-    title:'',
+    title:'首页',
   },
 },{
   path: '/login',
   name: 'login',
   component: Login,
   meta:{
-    title:'',
+    title:'登录',
   },
 },{
   path: '/register/:step?',
   name: 'register',
   component: Register,
   meta:{
-    title:'',
+    title:'注册',
   },
 },{
   path: '/forgetPassword/:step?',
   name: 'forgetPassword',
   component: ForgetPassword,
   meta:{
-    title:'',
+    title:'忘记密码',
+  },
+},{
+  path: '/giftList',
+  name: 'giftList',
+  component: GiftList,
+  meta:{
+    title:'积分商城',
+  },
+},{
+  path: '/GiftDetail/:id',
+  name: 'giftDetail',
+  component: GiftDetail,
+  meta:{
+    title:'礼品详情',
+  },
+},{
+  path: '/ExchangeRecord',
+  name: 'exchangeRecord',
+  component: ExchangeRecord,
+  meta:{
+    title:'兑换记录',
   },
 }]
 

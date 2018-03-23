@@ -33,6 +33,7 @@
     display: inline-block;
     padding: 0.4rem 0.2rem;
     min-width: 4rem;
+    max-width: 5rem;
     text-align: center;
     background: rgba(0,0,0,0.8);
     border-radius: 0.1rem;

@@ -8,6 +8,7 @@ import Modal from './Modal';
 import AlertModal from './AlertModal';
 import ConfirmModal from './ConfirmModal';
 import GenCode from './GenCode';
+import ScrollLoad from './ScrollLoad';
 
 /*全局组件注册配置*/
 export default {
@@ -19,6 +20,7 @@ export default {
     Vue.component('AlertModal',AlertModal);
     Vue.component('ConfirmModal',ConfirmModal);
     Vue.component('GenCode',GenCode);
+    Vue.component('ScrollLoad',ScrollLoad);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);
@@ -36,7 +38,7 @@ export default {
           tipsPosition:'fixed',//添加提示框的position属性值须是'absolute'或者fixed
           type:'operating',//提示类型，operating:正在处理,complete:处理完成,warn:错误警告,tips:提示
           text:'正在处理',//要提示的文本,
-          delayForDelete:3000,//提示框消失延时,
+          delayForDelete:2000,//提示框消失延时,
           mask:false//是否显示蒙版
         },...options};
         //

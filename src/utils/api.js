@@ -58,6 +58,22 @@ export default {
           params: params
         });
       },
+      //礼品详情
+      getGiftDetail:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/present/vpro',
+          params: params
+        });
+      },
+      //礼品兑换
+      exchangeGift:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/present/expro',
+          params: params
+        });
+      },
     }
   },
 

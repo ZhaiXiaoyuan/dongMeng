@@ -3,12 +3,11 @@
     <div class="home">
       <div class="banner-panel">
         <swiper :options="swiperOption">
-          <swiper-slide v-for="item in bannerList">
-            <a href="">
-              <img :src="item.url" alt="">
-            </a>
+          <swiper-slide v-for="(item,index) in bannerList" :key="item.id">
+            <a v-bind:href="item.url"><img :src="item.imageUrl"></a>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
+
         </swiper>
       </div>
       <div class="panel">
@@ -81,25 +80,10 @@
           </div>
           <div class="entry-list">
             <div class="entry-list">
-              <div class="entry gift-entry">
-                <p class="name">iPhone X</p>
-                <p class="cost">1234积分</p>
-                <img src="http://img11.360buyimg.com/n1/s450x450_jfs/t7297/154/3413903491/65679/45ae4902/59e42830N9da56c41.jpg" alt="">
-              </div>
-              <div class="entry gift-entry">
-                <p class="name">iPhone X</p>
-                <p class="cost">1234积分</p>
-                <img src="http://img11.360buyimg.com/n1/s450x450_jfs/t7297/154/3413903491/65679/45ae4902/59e42830N9da56c41.jpg" alt="">
-              </div>
-              <div class="entry gift-entry">
-                <p class="name">iPhone X</p>
-                <p class="cost">1234积分</p>
-                <img src="http://img11.360buyimg.com/n1/s450x450_jfs/t7297/154/3413903491/65679/45ae4902/59e42830N9da56c41.jpg" alt="">
-              </div>
-              <div class="entry gift-entry">
-                <p class="name">iPhone X</p>
-                <p class="cost">1234积分</p>
-                <img src="http://img11.360buyimg.com/n1/s450x450_jfs/t7297/154/3413903491/65679/45ae4902/59e42830N9da56c41.jpg" alt="">
+              <div v-for="(item,key,index) in giftList" class="entry gift-entry">
+                <p class="name">{{item.name}}</p>
+                <p class="cost">{{item.score}}积分</p>
+                <img :src="item.image" :alt="item.name">
               </div>
             </div>
           </div>
@@ -131,19 +115,12 @@
                   el: '.swiper-pagination'
                 }
               },
-              bannerList:[{
-                url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521492175127&di=aab07d8f83d848a1e8745656f5cfbf1d&imgtype=0&src=http%3A%2F%2Farticle.fd.zol-img.com.cn%2Ft_s640x2000%2Fg1%2FM05%2F0E%2F03%2FCg-4jlOtKD6IVtkmAARyvsKXnTIAAOokQOonIAABHLW926.jpg',
-              },{
-                url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521492263901&di=3acfe2696e7a7c3daa25c1193c341dfd&imgtype=0&src=http%3A%2F%2Fimg05.tooopen.com%2Fimages%2F20150423%2Ftooopen_sy_120055683549.jpg',
-              },{
-                url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521492208686&di=0b2d990a867e17b27e3965159c8a144e&imgtype=0&src=http%3A%2F%2Fupload.yzz.cn%2F2011%2Fmonth_1109%2F1109131918f11713cf785a5739.jpg',
-              },{
-                url:'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1728978545,1031145601&fm=27&gp=0.jpg',
-              },{
-                url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521492246092&di=242ece1639bd98fc9ae39f190d0e779e&imgtype=0&src=http%3A%2F%2Ffile32.mafengwo.net%2FM00%2F62%2F35%2FwKgBs1ZEnj6AMDcBAA0lC3iD4lE70.groupinfo.w680.jpeg',
-              }],
+              bannerList:[],
               housePurchaseTicketImg:require('../images/home/hall-example.jpg'),
               propertyTicketImg:require('../images/home/service-example.jpg'),
+              isFull:false,//true:已完善资料，false:未完善资料
+              canSign:false,//true:可签到，false:已签到
+              giftList:[],
             }
         },
         computed: {},
@@ -151,12 +128,17 @@
         methods: {
           getHomeData:function () {
             Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{
-              console.log('resp:',resp);
+              if(resp.status=='success'){
+                var data=JSON.parse(resp.message);
+                this.bannerList=data.adves;
+                this.isFull=data.isFull?true:false;
+                this.canSign=data.canSign?true:false
+              }
             })
           },
           getGiftList:function () {
             let pager={
-              pageSize:20,
+              pageSize:4,
               pageNumber:1
             }
             let params={
@@ -165,18 +147,22 @@
             }
             Vue.api.getGiftList(params).then((resp)=>{
               console.log('resp:',resp);
+              if(resp.status=='success'){
+                let data=JSON.parse(resp.message);
+                this.giftList=data.result;
+              }
             })
           }
         },
-        created: function () {
 
+        created: function () {
         },
         mounted: function () {
-         /* /!**!/
+          /**/
           this.getHomeData();
-          /!**!/
-          this.getGiftList();*/
-         /**/
+          /**/
+          this.getGiftList();
+
         },
         route: {
            /* data: function(transition) {
