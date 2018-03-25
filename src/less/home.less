@@ -109,6 +109,24 @@
     height: 0.30rem;
     background-size: 100% 100%;
   }
+  .coin-icon{
+    background: url("../images/home/coin-icon.png") no-repeat;
+    width: 0.35rem;
+    height: 0.35rem;
+    background-size: 100% 100%;
+  }
+  .wealth-icon{
+    background: url("../images/home/wealth-icon.png") no-repeat;
+    width: 2.54rem;
+    height: 2.46rem;
+    background-size: 100% 100%;
+  }
+  .sign-icon{
+    background: url("../images/home/sign-icon.png") no-repeat;
+    width: 0.45rem;
+    height: 0.48rem;
+    background-size: 100% 100%;
+  }
   .entrance-list{
     display: flex;
     .item{
@@ -183,6 +201,70 @@
       }
       &:before{
         .cm-top-border();
+      }
+    }
+  }
+  .sign-in-modal{
+    position: fixed;
+    top:0rem;
+    left: 0rem;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    .mask{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .modal-content{
+      position: fixed;
+      width: 100%;
+      top:2.7rem;
+      left: 0rem;
+    }
+    .modal-header{
+      display: flex;
+      padding: 0rem 0.65rem;
+      .close-btn{
+       margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 0.72rem;
+        height: 0.72rem;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.4);
+        .icon{
+          position: relative;
+          top:0.02rem;
+        }
+      }
+    }
+    .modal-body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding-top: 0.78rem;
+      text-align: center;
+      .reward{
+        padding: 0rem 0.28rem;
+        margin-top: 0.3rem;
+        color: #fff;
+        font-size: 0.32rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 0.7rem;
+        background: rgba(0,0,0,0.3);
+        border-radius: 0.12rem;
+        .num{
+          position: relative;
+          top:0.02rem;
+          padding: 0rem 0.08rem;
+          color: #FFB200;
+        }
       }
     }
   }

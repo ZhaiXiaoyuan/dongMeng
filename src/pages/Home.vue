@@ -38,9 +38,13 @@
         </div>
         <div class="panel-bd">
           <div class="entrance-list">
-            <div class="item item-sm">
+            <div class="item item-sm" v-if="!isFull">
               <i class="icon book-icon"></i>
               <p class="text">完善资料</p>
+            </div>
+            <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull" @click="signIn()">
+              <i class="icon sign-icon"></i>
+              <p class="text">{{canSign?'每天签到':'已签到'}}</p>
             </div>
             <div class="item item-sm">
               <i class="icon add-member-icon"></i>
@@ -89,6 +93,24 @@
           </div>
         </div>
       </div>
+      <div class="sign-in-modal" v-if="signInModalFlag">
+        <div class="mask"></div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="close-btn">
+              <i class="icon close-icon" @click="signInModalFlag=false"></i>
+            </div>
+          </div>
+          <div class="modal-body">
+            <i class="icon wealth-icon"></i>
+            <div class="reward">
+              <span>签到成功</span>
+              <span class="num">+{{scoreIncremental}}</span>
+              <i class="icon coin-icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 
@@ -121,6 +143,8 @@
               isFull:false,//true:已完善资料，false:未完善资料
               canSign:false,//true:可签到，false:已签到
               giftList:[],
+              signInModalFlag:false,
+              scoreIncremental:10,
             }
         },
         computed: {},
@@ -133,6 +157,7 @@
                 this.bannerList=data.adves;
                 this.isFull=data.isFull?true:false;
                 this.canSign=data.canSign?true:false
+                console.log('canSign:',this.canSign);
               }
             })
           },
@@ -146,12 +171,23 @@
               ...pager
             }
             Vue.api.getGiftList(params).then((resp)=>{
-              console.log('resp:',resp);
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
                 this.giftList=data.result;
               }
             })
+          },
+          signIn:function () {
+            let fb=this.operationFeedback({text:'签到中...'});
+            Vue.api.signIn({...Vue.tools.sessionInfo()}).then((resp)=>{
+              if(resp.status=='success'){
+                this.canSign=true;
+                this.signInModalFlag=true;
+                fb.setOptions({type:'complete',text:'签到成功',delayForDelete:0});
+              }else{
+                fb.setOptions({type:'warn',text:resp.message});
+              }
+            });
           }
         },
 

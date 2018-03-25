@@ -74,6 +74,22 @@ export default {
           params: params
         });
       },
+      //礼品兑换记录
+      getExchangeRecord:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/present/qexd',
+          params: params
+        });
+      },
+      //签到
+      signIn:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/award/sign',
+          params: params
+        });
+      },
     }
   },
 
