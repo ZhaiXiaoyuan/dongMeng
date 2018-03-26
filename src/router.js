@@ -7,6 +7,7 @@ import Register from './pages/account/Register.vue'
 import GiftList from './pages/scoreMall/GiftList.vue'
 import GiftDetail from './pages/scoreMall/GiftDetail.vue'
 import ExchangeRecord from './pages/scoreMall/ExchangeRecord'
+import ArticleList from './pages/article/ArticleList'
 
 Vue.use(Router)
 
@@ -47,18 +48,25 @@ const routes=[ {
     title:'积分商城',
   },
 },{
-  path: '/GiftDetail/:id',
+  path: '/giftDetail/:id',
   name: 'giftDetail',
   component: GiftDetail,
   meta:{
     title:'礼品详情',
   },
 },{
-  path: '/ExchangeRecord',
+  path: '/exchangeRecord',
   name: 'exchangeRecord',
   component: ExchangeRecord,
   meta:{
     title:'兑换记录',
+  },
+},{
+  path: '/articleList',
+  name: 'articleList',
+  component: ArticleList,
+  meta:{
+    title:'分享美文',
   },
 }]
 

@@ -1,0 +1,109 @@
+<!--美文列表-->
+<template>
+    <div class="article-list">
+      <div class="survey-panel">
+        <div class="data-info">
+          <p><i class="icon share-icon"></i>分享：<em>2</em></p>
+          <p><i class="icon diamond-icon"></i>积分：<em>200</em></p>
+        </div>
+        <div class="handle">
+          <span  class="cm-btn handle-btn">奖励规则</span>
+        </div>
+      </div>
+      <div class="list-panel">
+        <ul class="entry-list">
+          <li v-for="(entry,index) in entryList">
+            <div class="img-wrap">
+              <img :src="entry.titlepicUrl">
+              <p class="text">分享此篇文章获得{{entry.score}}积分</p>
+            </div>
+            <p class="cm-text title">{{entry.title}}</p>
+            <p class="cm-text sub">{{entry.content}}</p>
+            <p class="addition">
+              <span class="date">发表于{{entry.deploytime|formatDate('yyyy年MM月dd日')}}</span>
+              <span class="label">立刻分享</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <scroll-load :page="pager" @scrolling="getList()"></scroll-load>
+    </div>
+</template>
+
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="less" rel="stylesheet/less">
+
+</style>
+
+<script>
+    import Vue from 'vue'
+
+    export default {
+        components: {
+
+        },
+        data: function () {
+            return {
+              pager:{
+                pageNum: 1,
+                pageSize: 10,
+                isLoading:false,
+                isFinished:false
+              },
+              entryList:[],
+            }
+        },
+        computed: {},
+        watch: {},
+        methods: {
+
+          getList:function (isInit) {
+            if(isInit){
+              this.pager.pageNum = 1;
+              this.entryList = [];
+            }
+            let pager={
+              pageNumber:this.pager.pageNum,
+              pageSize:this.pager.pageSize
+            }
+            let params={
+              ...Vue.tools.sessionInfo(),
+              ...pager
+            }
+            Vue.api.getArticleList(params).then((resp)=>{
+              if(resp.status=='success'){
+                let data=JSON.parse(resp.message);
+                let pager=data.pager;
+                this.pager.pageNum=pager.pageNumber+1;
+                this.pager.maxPage=pager.totalPageCount;
+                this.pager.isLoading=false;
+                this.pager.isFinished=false;
+                this.entryList=this.entryList.concat(data.result);
+              }
+            })
+          }
+        },
+
+        created: function () {
+        },
+        mounted: function () {
+          /**/
+          this.getList();
+
+        },
+        route: {
+           /* data: function(transition) {
+                return Vue.utils.getCustomer().then(function (data) {
+                    {
+                        return {}
+                    }
+                });
+
+
+            },
+            waitForData: true,*/
+        }
+
+    };
+</script>

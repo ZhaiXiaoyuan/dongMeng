@@ -181,7 +181,7 @@
             let fb=this.operationFeedback({text:'签到中...'});
             Vue.api.signIn({...Vue.tools.sessionInfo()}).then((resp)=>{
               if(resp.status=='success'){
-                this.canSign=true;
+                this.canSign=false;
                 this.signInModalFlag=true;
                 fb.setOptions({type:'complete',text:'签到成功',delayForDelete:0});
               }else{

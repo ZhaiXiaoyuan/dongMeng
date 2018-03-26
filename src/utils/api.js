@@ -90,6 +90,14 @@ export default {
           params: params
         });
       },
+      //获取美文列表
+      getArticleList:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/qart',
+          params: params
+        });
+      },
     }
   },
 
