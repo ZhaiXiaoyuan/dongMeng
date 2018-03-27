@@ -144,7 +144,7 @@
               canSign:false,//true:可签到，false:已签到
               giftList:[],
               signInModalFlag:false,
-              scoreIncremental:10,
+              scoreIncremental:0,
             }
         },
         computed: {},
@@ -183,6 +183,7 @@
               if(resp.status=='success'){
                 this.canSign=false;
                 this.signInModalFlag=true;
+                this.scoreIncremental=resp.message;
                 fb.setOptions({type:'complete',text:'签到成功',delayForDelete:0});
               }else{
                 fb.setOptions({type:'warn',text:resp.message});
@@ -198,7 +199,6 @@
           this.getHomeData();
           /**/
           this.getGiftList();
-
         },
         route: {
            /* data: function(transition) {

@@ -98,6 +98,14 @@ export default {
           params: params
         });
       },
+      //获取用户积分数
+      getScore:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/cus/info/getscore',
+          params: params
+        });
+      },
     }
   },
 

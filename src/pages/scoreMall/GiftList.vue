@@ -4,7 +4,7 @@
       <div class="survey-panel">
         <div class="score-wrap">
           <i class="icon diamond-icon"></i>
-          <span class="score">可用积分：<em>200</em></span>
+          <span class="score">可用积分：<em>{{score}}</em></span>
         </div>
         <div class=" cm-btn btn">兑换记录</div>
       </div>
@@ -48,12 +48,12 @@
                 isFinished:false
               },
               giftList:[],
+              score:0,
             }
         },
         computed: {},
         watch: {},
         methods: {
-
           getGiftList:function (isInit) {
             if(isInit){
               this.pager.pageNum = 1;
@@ -78,12 +78,21 @@
                 this.giftList=this.giftList.concat(data.result);
               }
             })
+          },
+          getScore:function () {
+            Vue.api.getScore({...Vue.tools.sessionInfo()}).then((resp)=>{
+              if(resp.status=='success'){
+                this.score=resp.message;
+              }
+            });
           }
         },
 
         created: function () {
         },
         mounted: function () {
+          /*获取可用积分*/
+          this.getScore();
           /**/
           this.getGiftList();
 

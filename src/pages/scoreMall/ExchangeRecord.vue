@@ -3,7 +3,7 @@
     <div class="exchange-record">
       <div class="survey-panel">
         <p>已兑换福利（个）</p>
-        <p>2</p>
+        <p>{{exchangedCount}}</p>
       </div>
       <div class="list-panel">
         <ul class="entry-list">
@@ -50,9 +50,10 @@
                 pageNum: 1,
                 pageSize: 20,
                 isLoading:false,
-                isFinished:false
+                isFinished:false,
               },
               recordList:[],
+              exchangedCount:0,
             }
         },
         computed: {},
@@ -79,6 +80,8 @@
                 this.pager.maxPage=pager.totalPageCount;
                 this.pager.isLoading=false;
                 this.pager.isFinished=false;
+                //
+                this.exchangedCount=pager.totalRecordCount;
                 this.recordList=this.recordList.concat(data.result);
                 console.log('recordList:',this.recordList);
               }
