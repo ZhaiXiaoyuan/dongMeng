@@ -106,6 +106,22 @@ export default {
           params: params
         });
       },
+      //获取单个美文
+      getArticleDetail:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/vart',
+          params: params
+        });
+      },
+      //获取美文分享规则
+      getAwardRule:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/sarule',
+          params: params
+        });
+      },
     }
   },
 

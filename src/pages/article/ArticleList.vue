@@ -12,18 +12,18 @@
       </div>
       <div class="list-panel">
         <ul class="entry-list">
-          <li v-for="(entry,index) in entryList">
+          <router-link :to="{ name: 'articleDetail', params: { id: entry.id }}" v-for="(entry,index) in entryList" tag="li" :key="entry.id">
             <div class="img-wrap">
               <img :src="entry.titlepicUrl">
               <p class="text">分享此篇文章获得{{entry.score}}积分</p>
             </div>
             <p class="cm-text title">{{entry.title}}</p>
-            <p class="cm-text sub">{{entry.content}}</p>
+            <p class="cm-text sub" v-html="entry.content"></p>
             <p class="addition">
               <span class="date">发表于{{entry.deploytime|formatDate('yyyy年MM月dd日')}}</span>
               <span class="label">立刻分享</span>
             </p>
-          </li>
+          </router-link>
         </ul>
       </div>
       <scroll-load :page="pager" @scrolling="getList()"></scroll-load>

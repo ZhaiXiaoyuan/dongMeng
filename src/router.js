@@ -8,6 +8,8 @@ import GiftList from './pages/scoreMall/GiftList.vue'
 import GiftDetail from './pages/scoreMall/GiftDetail.vue'
 import ExchangeRecord from './pages/scoreMall/ExchangeRecord'
 import ArticleList from './pages/article/ArticleList'
+import ArticleDetail from './pages/article/ArticleDetail'
+import AwardRule from './pages/article/AwardRule'
 
 Vue.use(Router)
 
@@ -67,6 +69,20 @@ const routes=[ {
   component: ArticleList,
   meta:{
     title:'分享美文',
+  },
+},{
+  path: '/articleDetail/:id',
+  name: 'articleDetail',
+  component: ArticleDetail,
+  meta:{
+    title:'分享美文',
+  },
+},{
+  path: '/awardRule',
+  name: 'awardRule',
+  component: AwardRule,
+  meta:{
+    title:'奖励规则',
   },
 }]
 
