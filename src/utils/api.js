@@ -122,6 +122,14 @@ export default {
           params: params
         });
       },
+      //获取积分清单
+      getScoreRecordList:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/award/qaward',
+          params: params
+        });
+      },
     }
   },
 

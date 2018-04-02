@@ -7,6 +7,7 @@ import Register from './pages/account/Register.vue'
 import GiftList from './pages/scoreMall/GiftList.vue'
 import GiftDetail from './pages/scoreMall/GiftDetail.vue'
 import ExchangeRecord from './pages/scoreMall/ExchangeRecord'
+import MyScore from './pages/scoreMall/MyScore'
 import ArticleList from './pages/article/ArticleList'
 import ArticleDetail from './pages/article/ArticleDetail'
 import AwardRule from './pages/article/AwardRule'
@@ -83,6 +84,13 @@ const routes=[ {
   component: AwardRule,
   meta:{
     title:'奖励规则',
+  },
+},{
+  path: '/myScore',
+  name: 'myScore',
+  component: MyScore,
+  meta:{
+    title:'我的积分',
   },
 }]
 

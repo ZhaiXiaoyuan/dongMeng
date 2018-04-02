@@ -1,32 +1,42 @@
-<!--美文列表-->
+<!--我的积分-->
 <template>
-    <div class="article-list">
+    <div class="my-score">
       <div class="survey-panel">
-        <div class="data-info">
-          <p><i class="icon share-icon"></i>分享：<em>2</em></p>
-          <p><i class="icon diamond-icon"></i>积分：<em>200</em></p>
+        <div class="panel-bd">
+          <p>可用积分</p>
+          <p>{{score}}</p>
         </div>
-        <div class="handle">
-          <router-link :to="{ name: 'awardRule'}"  class="cm-btn handle-btn">奖励规则</router-link>
+        <div class="panel-ft">
+          <router-link :to="{ name: 'giftList'}" class="arrows-right" tag="div">
+            <i class="icon shopping-icon"></i>
+            兑换商城
+          </router-link>
+          <router-link :to="{ name: 'exchangeRecord'}" class="arrows-right" tag="div">
+            <i class="icon gift-icon"></i>
+            我的兑换
+          </router-link>
         </div>
       </div>
       <div class="list-panel">
-        <ul class="entry-list">
-          <router-link :to="{ name: 'articleDetail', params: { id: entry.id }}" v-for="(entry,index) in entryList" tag="li" :key="entry.id">
-            <div class="img-wrap">
-              <img :src="entry.titlepicUrl">
-              <p class="text">分享此篇文章获得{{entry.score}}积分</p>
-            </div>
-            <p class="cm-text title">{{entry.title}}</p>
-            <p class="cm-text sub" v-html="entry.content"></p>
-            <p class="addition">
-              <span class="date">发表于{{entry.deploytime|formatDate('yyyy年MM月dd日')}}</span>
-              <span class="label">立刻分享</span>
-            </p>
-          </router-link>
-        </ul>
+        <div class="panel-hd">
+          <span>收入300</span>
+          <span>支出1200</span>
+        </div>
+        <div class="panel-bd">
+          <ul class="entry-list">
+            <li class="entry" v-for="(entry,index) in entryList">
+              <div class="entry-bd">
+                <span class="field">{{entry.biztypeLabel}}</span>
+                <span class="value" :class="{'error':!entry.pmflag}"><i class="icon">{{entry.pmflag?'+':'-'}}</i>{{entry.score}}</span>
+              </div>
+              <div class="entry-ft">
+                {{entry.createtime||formatDate('MM-dd hh:mm')}}
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <scroll-load :page="pager" @scrolling="getList()"></scroll-load>
+      <scroll-load :page="pager" @scrolling="getGiftList()"></scroll-load>
     </div>
 </template>
 
@@ -47,17 +57,17 @@
             return {
               pager:{
                 pageNum: 1,
-                pageSize: 10,
+                pageSize: 20,
                 isLoading:false,
                 isFinished:false
               },
               entryList:[],
+              score:0,
             }
         },
         computed: {},
         watch: {},
         methods: {
-
           getList:function (isInit) {
             if(isInit){
               this.pager.pageNum = 1;
@@ -69,9 +79,10 @@
             }
             let params={
               ...Vue.tools.sessionInfo(),
-              ...pager
+              ...pager,
+              type:1,//收入/奖励=1 | 支付/兑换=0
             }
-            Vue.api.getArticleList(params).then((resp)=>{
+            Vue.api.getScoreRecordList(params).then((resp)=>{
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
                 let pager=data.pager;
@@ -82,14 +93,23 @@
                 this.entryList=this.entryList.concat(data.result);
               }
             })
+          },
+          getScore:function () {
+            Vue.api.getScore({...Vue.tools.sessionInfo()}).then((resp)=>{
+              if(resp.status=='success'){
+                this.score=resp.message;
+              }
+            });
           }
         },
 
         created: function () {
         },
         mounted: function () {
+          /*获取可用积分*/
+          this.getScore();
           /**/
-          this.getList();
+          this.getList(true);
 
         },
         route: {
