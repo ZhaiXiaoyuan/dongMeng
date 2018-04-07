@@ -82,6 +82,19 @@ fieldset, img {
 button, input, select, textarea {
   font-size: 100%;
 }
+/**/
+input::-webkit-input-placeholder{
+  color:#999;
+}
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#999;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#999;
+}
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#999;
+}
 
 /* 使得表单元素在 ie 下能继承字体大小 */
 
@@ -156,6 +169,41 @@ table {
   background: url("../images/common/gift-icon.png") no-repeat;
   width:0.30rem;
   height: 0.29rem;
+  background-size: 100% 100%;
+}
+.first-icon{
+  display: inline-block;
+  background: url("../images/common/first-icon.png") no-repeat;
+  width:0.50rem;
+  height: 0.43rem;
+  background-size: 100% 100%;
+}
+.second-icon{
+  display: inline-block;
+  background: url("../images/common/second-icon.png") no-repeat;
+  width:0.50rem;
+  height: 0.43rem;
+  background-size: 100% 100%;
+}
+.third-icon{
+  display: inline-block;
+  background: url("../images/common/third-icon.png") no-repeat;
+  width:0.50rem;
+  height: 0.43rem;
+  background-size: 100% 100%;
+}
+.selected-icon{
+  display: inline-block;
+  background: url("../images/common/selected-icon.png") no-repeat;
+  width:0.21rem;
+  height: 0.14rem;
+  background-size: 100% 100%;
+}
+.success-status-icon{
+  display: inline-block;
+  background: url("../images/common/success-status-icon.png") no-repeat;
+  width:1.5rem;
+  height: 1.5rem;
   background-size: 100% 100%;
 }
 
@@ -282,4 +330,111 @@ table {
 
 .cm-text{
   word-break:break-all;
+}
+
+.cm-checkbox{
+  display: flex;
+  align-items: center;
+  .status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.36rem;
+    height: 0.36rem;
+    border: 1px solid #DBDBDB;
+    border-radius: 50%;
+  }
+  .text{
+    padding-left: 0.15rem;
+    color: #B9B9B9;
+    font-size: 0.32rem;
+  }
+  &.active{
+    .status{
+      background: #12C2B3;
+      border: 1px solid #12C2B3;
+    }
+  }
+}
+
+.cm-tab-list{
+  display: flex;
+  background: #fff;
+  li{
+    flex: 1;
+    text-align: center;
+    font-size: 0.32rem;
+    color: #333;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    &.active{
+      color: #12C1B2;
+      >span{
+        position: relative;
+        &:after{
+          position: absolute;
+          left: 0rem;
+          bottom: -0.12rem;
+          content: '';
+          width: 100%;
+          height: 2px;
+          background: #12C2B3;
+        }
+      }
+    }
+  }
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.cm-input{
+  width: 100%;
+  height: 0.9rem;
+  font-size: 0.32rem;
+  color: #333;
+  border: 1px solid #EAEAEA;
+  padding: 0rem 0.3rem;
+  &:focus{
+    outline: 1px solid #07D1AA;
+  }
+}
+
+/**/
+.cm-feedback-page{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top:0rem;
+  left: 0rem;
+  background: #fff;
+  padding: 1.24rem 0.3rem;
+  text-align: center;
+  .title{
+    margin-top: 0.6rem;
+    font-size: 0.36rem;
+    color: #333;
+  }
+  .desc{
+    margin-top: 0.2rem;
+    font-size: 0.28rem;
+    color: #666;
+  }
+  .handle-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 0.9rem;
+    font-size: 0.32rem;
+    color: #333;
+    border: 1px solid #EAEAEA;
+  }
+  .ok-btn{
+    margin: 0.8rem 0rem 0.3rem 0rem;
+    color: #fff;
+    background: #12C2B3;
+    border: none;
+  }
 }

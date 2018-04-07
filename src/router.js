@@ -8,9 +8,13 @@ import GiftList from './pages/scoreMall/GiftList.vue'
 import GiftDetail from './pages/scoreMall/GiftDetail.vue'
 import ExchangeRecord from './pages/scoreMall/ExchangeRecord'
 import MyScore from './pages/scoreMall/MyScore'
+import Rank from './pages/scoreMall/Rank'
 import ArticleList from './pages/article/ArticleList'
 import ArticleDetail from './pages/article/ArticleDetail'
 import AwardRule from './pages/article/AwardRule'
+import Recommend from './pages/recommend/Recommend'
+import RecommendFeedback from './pages/recommend/RecommendFeedback'
+import RecommendList from './pages/recommend/RecommendList'
 
 Vue.use(Router)
 
@@ -91,6 +95,34 @@ const routes=[ {
   component: MyScore,
   meta:{
     title:'我的积分',
+  },
+},{
+  path: '/rank',
+  name: 'rank',
+  component: Rank,
+  meta:{
+    title:'金榜题名',
+  },
+},{
+  path: '/recommend',
+  name: 'recommend',
+  component: Recommend,
+  meta:{
+    title:'推荐买房',
+  },
+},{
+  path: '/recommendFeedback',
+  name: 'recommendFeedback',
+  component: RecommendFeedback,
+  meta:{
+    title:'推荐买房',
+  },
+},{
+  path: '/recommendList',
+  name: 'recommendList',
+  component: RecommendList,
+  meta:{
+    title:'推荐买房',
   },
 }]
 

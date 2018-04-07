@@ -115,6 +115,14 @@ Vue.filter('textFormat',function(text,curNum){
     return text;
 });
 
+/*手机号码文本显示格式*/
+Vue.filter('phoneTextFormat',function(text){
+  if(!text){
+    return;
+  }
+  return text.substr(0, 3) + '*****' + text.substr(8);
+});
+
 /*格式化时间*/
 Vue.filter('formatDate',function(date,fmt){
   if(typeof date !=Date){

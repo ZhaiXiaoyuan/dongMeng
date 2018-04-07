@@ -1,49 +1,54 @@
-<!--我的积分-->
+<!--推荐买房列表-->
 <template>
-    <div class="my-score">
+    <div class="recommend-list">
       <div class="survey-panel">
         <div class="panel-bd">
-          <p>可用积分</p>
-          <p>{{score}}</p>
-        </div>
-        <div class="panel-ft">
-          <router-link :to="{ name: 'giftList'}" class="arrows-right" tag="div">
-            <i class="icon shopping-icon"></i>
-            兑换商城
-          </router-link>
-          <router-link :to="{ name: 'exchangeRecord'}" class="arrows-right" tag="div">
-            <i class="icon gift-icon"></i>
-            我的兑换
-          </router-link>
-        </div>
-      </div>
-      <div class="list-panel">
-        <div class="panel-hd">
-          <span :class="{'active':listType=='income'}" @click="setListType('income')">收入300</span>
-          <span :class="{'active':listType=='cost'}" @click="setListType('cost')">支出1200</span>
-        </div>
-        <div class="panel-bd">
-          <ul class="entry-list">
-            <li class="entry" v-for="(entry,index) in entryList">
-              <div class="entry-bd">
-                <span class="field">{{entry.biztypeLabel}}</span>
-                <span class="value" :class="{'error':!entry.pmflag}"><i class="icon">{{entry.pmflag?'+':'-'}}</i>{{entry.score}}</span>
-              </div>
-              <div class="entry-ft">
-                {{entry.createtime||formatDate('MM-dd hh:mm')}}
-              </div>
+          <ul>
+            <li>
+              <p>0%</p>
+              <p>有效推荐率</p>
+            </li>
+            <li>
+              <p>2</p>
+              <p>推荐总数</p>
+            </li>
+            <li>
+              <p>0</p>
+              <p>共赚积分</p>
             </li>
           </ul>
         </div>
       </div>
-      <scroll-load :page="pager" @scrolling="getList()"></scroll-load>
+      <div class="list-panel">
+        <div class="panel-hd">
+          <ul class="cm-tab-list">
+            <li :class="{'active':type==0}" @click="setType(0)"><span>待确认</span></li>
+            <li :class="{'active':type==1}" @click="setType(1)"><span>有效推荐</span></li>
+            <li :class="{'active':type==2}" @click="setType(2)"><span>无效推荐</span></li>
+          </ul>
+        </div>
+        <div class="panel-bd">
+          <ul>
+            <li class="entry" v-for="(entry,index) in entryList">
+              <div class="entry-bd">
+                <div class="field">
+                  <span>{{entry.buyerName}}</span>
+                  <span class="gender">{{entry.buyerGenderLabel}}</span>
+                </div>
+                <span class="value">{{entry.buyerMobilephone}}</span>
+              </div>
+              <div class="entry-ft">推荐时间：{{entry.createtime|formatDate('yyyy年MM月dd日')}}</div>
+            </li>
+          </ul>
+          <scroll-load :page="pager" @scrolling="getList()"></scroll-load>
+        </div>
+      </div>
     </div>
 </template>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" rel="stylesheet/less">
-
+<style lang="less" rel="stylesheet/less" scoped>
 </style>
 
 <script>
@@ -55,6 +60,7 @@
         },
         data: function () {
             return {
+              type:0,//是否有效【0=待确认 | 1=有效推荐 | 2=无效推荐】
               pager:{
                 pageNum: 1,
                 pageSize: 20,
@@ -62,8 +68,6 @@
                 isFinished:false
               },
               entryList:[],
-              score:0,
-              listType:'income',//列表类型，income:收入,cost:支出
             }
         },
         computed: {},
@@ -80,10 +84,10 @@
             }
             let params={
               ...Vue.tools.sessionInfo(),
-              ...pager,
-              type:this.listType=='income'?1:0,//收入/奖励=1 | 支付/兑换=0
+              iseffect:this.type,
+              ...pager
             }
-            Vue.api.getScoreRecordList(params).then((resp)=>{
+            Vue.api.getRecommendList(params).then((resp)=>{
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
                 let pager=data.pager;
@@ -95,15 +99,8 @@
               }
             })
           },
-          getScore:function () {
-            Vue.api.getScore({...Vue.tools.sessionInfo()}).then((resp)=>{
-              if(resp.status=='success'){
-                this.score=resp.message;
-              }
-            });
-          },
-          setListType:function (value) {
-            this.listType=value;
+          setType:function (value) {
+            this.type=value;
             this.getList(true);
           }
         },
@@ -111,11 +108,8 @@
         created: function () {
         },
         mounted: function () {
-          /*获取可用积分*/
-          this.getScore();
           /**/
           this.getList(true);
-
         },
         route: {
            /* data: function(transition) {

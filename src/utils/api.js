@@ -130,6 +130,30 @@ export default {
           params: params
         });
       },
+      //获取积分排行榜
+      getRankList:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/award/board',
+          params: params
+        });
+      },
+      //推荐他人买房
+      recommendBuyer:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/rbuyer',
+          params: params
+        });
+      },
+      //我的推荐买房
+      getRecommendList:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/qrbuyer',
+          params: params
+        });
+      },
     }
   },
 

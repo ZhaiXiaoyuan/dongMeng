@@ -4,8 +4,11 @@
     <div class="cm-loading" v-show="page&&page.isLoading&&!page.isFinished">
       <mt-spinner type="snake" color="#00CDB2" :size="25"></mt-spinner>
     </div>
-    <div class="cm-loading" v-show="page&&!page.isLoading&&page.isFinished">
+    <div class="cm-loading" v-show="page&&page.maxPage!=0&&!page.isLoading&&page.isFinished">
       <p class="no-more">{{noData}}</p>
+    </div>
+    <div class="cm-loading" v-show="page&&page.maxPage==0&&!page.isLoading&&page.isFinished">
+      <p class="no-more">暂无数据</p>
     </div>
   </div>
 </template>

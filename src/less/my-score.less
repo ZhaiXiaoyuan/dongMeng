@@ -40,17 +40,24 @@
     }
   }
   .list-panel{
-    margin-top: 0.08rem;
+    margin-top: 0.3rem;
     .panel-hd{
-      padding: 0.2rem 0.3rem;
+      display: flex;
       font-size: 0.24rem;
-      color: #999;
-      span+span{
-        padding-left: 1rem;
+      color: #12C2B3;
+      span{
+        padding: 0.1rem 0rem;
+        flex: 1;
+        text-align: center;
+        border: 1px solid #12C2B3;
+        &.active{
+          background: #12C2B3;
+          color: #fff;
+        }
       }
     }
     .panel-bd{
-      border-top: 1px solid #e5e5e5;
+    /*  border-top: 1px solid #e5e5e5;*/
       border-bottom: 1px solid #e5e5e5;
       background: #fff;
       .entry-list{
