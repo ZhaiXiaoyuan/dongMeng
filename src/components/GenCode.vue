@@ -7,17 +7,16 @@
 <style lang="less" rel="stylesheet/less">
   .gen-code{
     position: absolute;
-    width: 2.6rem;
-    height: 0.76rem;
-    line-height: 0.76rem;
-    border-radius: 0.06rem;
-    background: #4e89ee;
-    font-size: 0.28rem;
+    width: 2rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    background: #12C2B3;
+    font-size: 0.24rem;
     color: #fff;
     text-align: center;
     top:0rem;
     bottom:0rem;
-    right: 0.3rem;
+    right: 0.2rem;
     margin: auto;
     cursor: pointer;
   }
@@ -44,10 +43,6 @@
       return {
         time:60,
         isRequesting:false,
-        urlObj:{
-          register:'/lyy/rest/group/distributor/getRegisterCode',
-          resetPassword:'/lyy/rest/group/distributor/getForgetCode'
-        }
       }
     },
     computed: {},
@@ -65,24 +60,15 @@
           return;
         }
         this.isRequesting=true;
-        let hb=this.handleFeedback({
-          text:'发送中...'
-        });
-        let params=null;
-        let method=null;
-        switch (this.type){
-          case 'register':
-            params={"phoneNumber": this.phone};
-            break;
-          case 'resetPassword':
-            params={"phone": this.phone};
-            method='get';
-            break;
+        let params={
+          ...Vue.tools.sessionInfo(),
+          mobilephone:this.phone
         }
-        Vue.api.getCode(params,this.urlObj[this.type],method).then(function (resp) {
+        let fb=this.operationFeedback({text:'发送中...'});
+        Vue.api.genCode(params).then(function (resp) {
           that.isRequesting=false;
-          if(resp.result==1){
-            hb.setOptions({type:'complete','text':'发送成功'});
+          if(resp.status=='success'){
+            fb.setOptions({type:'complete','text':'发送成功'});
             var interval=setInterval(function () {
               if(that.time==0){
                 that.time=60;
@@ -92,7 +78,7 @@
               }
             },1000);
           }else{
-            hb.setOptions({type:'warn','text':resp.description});
+            fb.setOptions({type:'warn','text':resp.description});
           }
         });
       }

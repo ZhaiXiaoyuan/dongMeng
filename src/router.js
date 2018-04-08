@@ -15,6 +15,8 @@ import AwardRule from './pages/article/AwardRule'
 import Recommend from './pages/recommend/Recommend'
 import RecommendFeedback from './pages/recommend/RecommendFeedback'
 import RecommendList from './pages/recommend/RecommendList'
+import CompleteData from './pages/account/CompleteData'
+import EditData from './pages/account/EditData'
 
 Vue.use(Router)
 
@@ -123,6 +125,20 @@ const routes=[ {
   component: RecommendList,
   meta:{
     title:'推荐买房',
+  },
+},{
+  path: '/completeData',
+  name: 'completeData',
+  component: CompleteData,
+  meta:{
+    title:'完善信息',
+  },
+},{
+  path: '/editData',
+  name: 'editData',
+  component: EditData,
+  meta:{
+    title:'修改信息',
   },
 }]
 

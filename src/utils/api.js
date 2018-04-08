@@ -154,6 +154,38 @@ export default {
           params: params
         });
       },
+      //获取短信验证码
+      genCode:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/cus/auth/mcode',
+          params: params
+        });
+      },
+      //用户个人信息获取
+      getUserInfo:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/cus/info/get',
+          params: params
+        });
+      },
+      //用户个人信息完善
+      saveUserData:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/cus/info/upd',
+          params: params
+        });
+      },
+      //用户绑定手机号码
+      bindPhone:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/cus/auth/reg',
+          params: params
+        });
+      },
     }
   },
 
