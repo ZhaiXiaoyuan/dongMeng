@@ -11,12 +11,16 @@ import MyScore from './pages/scoreMall/MyScore'
 import Rank from './pages/scoreMall/Rank'
 import ArticleList from './pages/article/ArticleList'
 import ArticleDetail from './pages/article/ArticleDetail'
-import AwardRule from './pages/article/AwardRule'
+import AwardRule from './pages/common/AwardRule'
 import Recommend from './pages/recommend/Recommend'
 import RecommendFeedback from './pages/recommend/RecommendFeedback'
 import RecommendList from './pages/recommend/RecommendList'
 import CompleteData from './pages/account/CompleteData'
 import EditData from './pages/account/EditData'
+import BuildingContainer from './pages/building/Container'
+import Survey from './pages/building/Survey'
+import Layout from './pages/building/Layout'
+import Album from './pages/building/Album'
 
 Vue.use(Router)
 
@@ -85,7 +89,7 @@ const routes=[ {
     title:'分享美文',
   },
 },{
-  path: '/awardRule',
+  path: '/awardRule/:type',
   name: 'awardRule',
   component: AwardRule,
   meta:{
@@ -140,6 +144,39 @@ const routes=[ {
   meta:{
     title:'修改信息',
   },
+},{
+  path: '/building',
+  name:'building',
+  component: BuildingContainer,
+  meta:{
+    title:'楼盘风采',
+  },
+  children: [
+    {
+      path: 'survey',
+      name:'survey',
+      component: Survey,
+      meta:{
+        title:'概况',
+      },
+    },
+    {
+      path: 'layout',
+      name:'layout',
+      component: Layout,
+      meta:{
+        title:'户型',
+      },
+    },
+    {
+      path: 'album',
+      name:'album',
+      component: Album,
+      meta:{
+        title:'相册',
+      },
+    }
+  ]
 }]
 
 const router= new Router({

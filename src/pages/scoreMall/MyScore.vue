@@ -19,8 +19,8 @@
       </div>
       <div class="list-panel">
         <div class="panel-hd">
-          <span :class="{'active':listType=='income'}" @click="setListType('income')">收入300</span>
-          <span :class="{'active':listType=='cost'}" @click="setListType('cost')">支出1200</span>
+          <span :class="{'active':listType=='income'}" @click="setListType('income')">收入{{totals&&totals.psum}}</span>
+          <span :class="{'active':listType=='cost'}" @click="setListType('cost')">支出{{totals&&totals.msum}}</span>
         </div>
         <div class="panel-bd">
           <ul class="entry-list">
@@ -64,6 +64,7 @@
               entryList:[],
               score:0,
               listType:'income',//列表类型，income:收入,cost:支出
+              totals:null,
             }
         },
         computed: {},
@@ -86,6 +87,9 @@
             Vue.api.getScoreRecordList(params).then((resp)=>{
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
+                if(isInit){
+                  this.totals=data.totals;
+                }
                 let pager=data.pager;
                 this.pager.pageNum=pager.pageNumber+1;
                 this.pager.maxPage=pager.totalPageCount;

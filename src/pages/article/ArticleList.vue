@@ -3,11 +3,11 @@
     <div class="article-list">
       <div class="survey-panel">
         <div class="data-info">
-          <p><i class="icon share-icon"></i>分享：<em>2</em></p>
-          <p><i class="icon diamond-icon"></i>积分：<em>200</em></p>
+          <p><i class="icon share-icon"></i>分享：<em>{{totals&&totals.scount }}</em></p>
+          <p><i class="icon diamond-icon"></i>积分：<em>{{totals&&totals.ssum}}</em></p>
         </div>
         <div class="handle">
-          <router-link :to="{ name: 'awardRule'}"  class="cm-btn handle-btn">奖励规则</router-link>
+          <router-link :to="{ name: 'awardRule',params:{type:'shareAward'}}"  class="cm-btn handle-btn">奖励规则</router-link>
         </div>
       </div>
       <div class="list-panel">
@@ -52,6 +52,7 @@
                 isFinished:false
               },
               entryList:[],
+              totals:null,
             }
         },
         computed: {},
@@ -74,6 +75,9 @@
             Vue.api.getArticleList(params).then((resp)=>{
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
+                if(isInit){
+                  this.totals=data.totals;
+                }
                 let pager=data.pager;
                 this.pager.pageNum=pager.pageNumber+1;
                 this.pager.maxPage=pager.totalPageCount;
@@ -89,7 +93,7 @@
         },
         mounted: function () {
           /**/
-          this.getList();
+          this.getList(true);
 
         },
         route: {

@@ -186,6 +186,14 @@ export default {
           params: params
         });
       },
+      //获取推荐奖励规则
+      getRecommendAwardRule:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/rbrule',
+          params: params
+        });
+      },
     }
   },
 

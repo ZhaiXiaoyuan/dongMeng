@@ -8,19 +8,19 @@
         <div class="panel-bd">
           <ul>
             <li>
-              <p>{{score}}</p>
+              <p>{{survey&&survey.asum}}</p>
               <p>积分总数</p>
             </li>
             <li>
-              <p>20000</p>
-              <p>分享次数</p>
+              <p>{{survey&&survey.ssum}}</p>
+              <p>分享积分</p>
             </li>
             <li>
-              <p>20000</p>
+              <p>{{survey&&survey.rsum}}</p>
               <p>有效推荐</p>
             </li>
             <li>
-              <p>20000</p>
+              <p>{{survey&&survey.isum}}</p>
               <p>邀请好友</p>
             </li>
           </ul>
@@ -144,7 +144,7 @@
           </div>
         </div>
       </div>
-     <!-- <scroll-load :page="pager" @scrolling="getList()"></scroll-load>-->
+      <scroll-load :page="pager" @scrolling="getList()"></scroll-load>
     </div>
 </template>
 
@@ -170,8 +170,8 @@
                 isFinished:false
               },
               entryList:[],
-              score:0,
-              listType:'Share',//全部=All | 分享=Share | 邀请=Invite | 荐客=Recom
+              listType:'All',//全部=All | 分享=Share | 邀请=Invite | 荐客=Recom
+              survey:null,
             }
         },
         computed: {},
@@ -195,12 +195,25 @@
             Vue.api.getRankList(params).then((resp)=>{
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
+                if(isInit){
+                  this.survey={
+                    asum:data.asum,
+                    ssum:data.ssum,
+                    rsum:data.rsum,
+                    isum:data.isum,
+                  }
+                }
               /*  let pager=data.pager;
                 this.pager.pageNum=pager.pageNumber+1;
                 this.pager.maxPage=pager.totalPageCount;
                 this.pager.isLoading=false;
                 this.pager.isFinished=false;*/
-                this.entryList=this.entryList.concat(data);
+                this.entryList=this.entryList.concat(data.list);
+                if(this.entryList.length==0){
+                  this.pager.maxPage=0;
+                  this.pager.isLoading=false;
+                  this.pager.isFinished=true;
+                }
               }
             })
           },
@@ -220,8 +233,6 @@
         created: function () {
         },
         mounted: function () {
-          /*获取可用积分*/
-          this.getScore();
           /**/
           this.getList(true);
 

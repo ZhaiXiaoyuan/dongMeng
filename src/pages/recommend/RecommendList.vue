@@ -5,15 +5,15 @@
         <div class="panel-bd">
           <ul>
             <li>
-              <p>0%</p>
+              <p>{{totals&&totals.urate}}%</p>
               <p>有效推荐率</p>
             </li>
             <li>
-              <p>2</p>
+              <p>{{totals&&totals.acount}}</p>
               <p>推荐总数</p>
             </li>
             <li>
-              <p>0</p>
+              <p>{{totals&&totals.rsum}}</p>
               <p>共赚积分</p>
             </li>
           </ul>
@@ -68,6 +68,7 @@
                 isFinished:false
               },
               entryList:[],
+              totals:null,
             }
         },
         computed: {},
@@ -90,6 +91,9 @@
             Vue.api.getRecommendList(params).then((resp)=>{
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
+                if(isInit){
+                  this.totals=data.totals;
+                }
                 let pager=data.pager;
                 this.pager.pageNum=pager.pageNumber+1;
                 this.pager.maxPage=pager.totalPageCount;

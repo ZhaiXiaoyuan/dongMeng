@@ -1,20 +1,14 @@
-<!--奖励规则-->
+<!--楼盘风采模块容器-->
 <template>
-   <div class="award-rule">
-     <div v-html="ruleContent"></div>
-   </div>
+    <div class="container">
+      233
+      <router-view></router-view>
+    </div>
 </template>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less" scoped>
-  .award-rule{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    padding: 0.5rem 0.6rem;
-  }
 </style>
 
 <script>
@@ -26,26 +20,19 @@
         },
         data: function () {
             return {
-              ruleContent:null,
+
             }
         },
         computed: {},
         watch: {},
         methods: {
-          getAwardRule:function () {
-            Vue.api.getAwardRule({...Vue.tools.sessionInfo()}).then((resp)=>{
-              if(resp.status=='success'){
-                this.ruleContent=resp.message;
-              }
-            })
-          }
+
         },
 
         created: function () {
         },
         mounted: function () {
-          /*获取美文分享规则*/
-          this.getAwardRule();
+
         },
         route: {
            /* data: function(transition) {

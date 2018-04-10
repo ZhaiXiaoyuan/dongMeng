@@ -27,7 +27,7 @@
       <div class="handle-btn submit-btn" @click="submit()">提交信息</div>
       <div class="handle-btn">查看我的推荐</div>
       <div class="btn-wrap">
-        <a href="" class="link-btn">奖励规则>></a>
+        <router-link :to="{ name: 'awardRule',params:{type:'recommendAward'}}"  tag="a" class="link-btn">奖励规则>></router-link>
       </div>
     </div>
 </template>
