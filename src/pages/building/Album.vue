@@ -1,7 +1,15 @@
 <!--相册-->
 <template>
     <div class="album">
+      <div class="pic-list-panel">
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(item,index) in itemList" :key="item.id">
+            <div class="img-wrap" :style="{background: 'url('+item.imageUrl+') no-repeat center',backgroundSize: 'cover'}"></div>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
 
+        </swiper>
+      </div>
     </div>
 </template>
 
@@ -12,26 +20,74 @@
 
 <script>
     import Vue from 'vue'
+    import  { swiper, swiperSlide } from 'vue-awesome-swiper'
+    import 'swiper/dist/css/swiper.css'
 
     export default {
         components: {
-
+          swiper,
+          swiperSlide
         },
         data: function () {
             return {
-
+              swiperOption: {
+                direction: 'vertical',
+                slidesPerView: 1,
+                spaceBetween: 0,
+                mousewheel: true,
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                },
+              },
+              pager:{
+                pageNum: 1,
+                pageSize: 20,
+                isLoading:false,
+                isFinished:false
+              },
+              itemList:[]
             }
         },
         computed: {},
         watch: {},
         methods: {
-
+          getList:function (isInit) {
+            if(isInit){
+              this.pager.pageNum = 1;
+              this.itemList = [];
+            }
+            let pager={
+              pageNumber:this.pager.pageNum,
+              pageSize:this.pager.pageSize
+            }
+            let params={
+              ...Vue.tools.sessionInfo(),
+              ...pager
+            }
+            Vue.api.getBuildingAlbum(params).then((resp)=>{
+              if(resp.status=='success'){
+                let data=JSON.parse(resp.message);
+                let pager=data.pager;
+                this.pager.pageNum=pager.pageNumber+1;
+                this.pager.maxPage=pager.totalPageCount;
+                this.pager.isLoading=false;
+                this.pager.isFinished=false;
+                data.result.forEach((item,index)=>{
+                  this.itemList.push({
+                    imageUrl:item
+                  });
+                })
+              }
+            })
+          },
         },
 
         created: function () {
         },
         mounted: function () {
-
+          /**/
+          this.getList(true);
         },
         route: {
            /* data: function(transition) {

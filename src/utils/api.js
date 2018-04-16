@@ -194,6 +194,30 @@ export default {
           params: params
         });
       },
+      //楼盘风采-楼盘概况分页查询
+      getBuildingSurvey:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/hs/info/getbs',
+          params: params
+        });
+      },
+      //楼盘风采-楼盘相册分页查询
+      getBuildingAlbum:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/hs/info/getps',
+          params: params
+        });
+      },
+      //楼盘风采-楼盘户型全量查看
+      getLayoutInfo:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/hs/info/getms',
+          params: params
+        });
+      },
     }
   },
 
