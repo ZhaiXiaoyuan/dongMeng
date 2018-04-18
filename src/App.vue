@@ -1,5 +1,8 @@
 <template>
   <div id="app" v-cloak>
+   <!-- <transition :name="transitionName">
+      <router-view/>
+    </transition>-->
     <router-view/>
   </div>
 </template>
@@ -20,6 +23,19 @@
   }
 export default {
   name: 'app',
+  data:function () {
+    return {
+      transitionName:''
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      const toDepth = to.path.split('/').length
+      const fromDepth = from.path.split('/').length
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+      console.log('this.transitionName:',this.transitionName);
+    }
+  },
   mounted: function () {
     /*rem单位缩放*/
     (function (doc, win) {

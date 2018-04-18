@@ -112,6 +112,33 @@ export default {
             }
           }
         },
+        wxConfig:function (options) {
+          var params=$.extend({
+              ...this.sessionInfo(),
+            url:window.location.href,
+          },options.params);
+          Vue.api.getWeChatConfig(params).then((resp)=>{
+            if(resp.status=='success'){
+              var configData=JSON.parse(resp.message);
+              wx.config({
+                debug:options.debug?true:false,
+                beta:options.beta?true:false,
+                appId: configData.appId,
+                timestamp: configData.timestamp,
+                nonceStr: configData.nonceStr,
+                signature: configData.signature,
+                jsApiList: options.jsApiList
+              });
+              wx.ready(function () {
+                if(options.callback){
+                  options.callback&&options.callback(true);
+                }
+              });
+            }else{
+              options.callback&&options.callback(false);
+            }
+          });
+        }
       }
     },
 }

@@ -13,10 +13,10 @@
       <div class="panel">
         <div class="panel-bd">
           <div class="entrance-list">
-            <div class="item">
+            <router-link :to="{ name: 'survey', params: {}}" class="item">
               <i class="icon building-icon"></i>
               <p class="text">楼盘风采</p>
-            </div>
+            </router-link>
             <div class="item">
               <i class="icon consultant-icon"></i>
               <p class="text">置业顾问</p>
@@ -29,46 +29,46 @@
         </div>
       </div>
       <div class="panel">
-        <div class="panel-hd arrows-right">
+        <router-link :to="{ name: 'awardRule', params: {type:'shareAward'}}" class="panel-hd arrows-right">
           <span class="title">
             <i class="icon earn-font-icon"></i>
             积分
           </span>
           <span class="link">奖励规则</span>
-        </div>
+        </router-link >
         <div class="panel-bd">
           <div class="entrance-list">
-            <div class="item item-sm" v-if="!isFull">
-              <i class="icon book-icon"></i>
+            <router-link :to="{ name: 'completeData', params: {}}" class="item item-sm" v-if="!isFull">
+              <span class="icon-wrap"><i class="icon book-icon"></i></span>
               <p class="text">完善资料</p>
-            </div>
-            <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull" @click="signIn()">
-              <i class="icon sign-icon"></i>
+            </router-link>
+            <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull" @click="signInModal()">
+              <span class="icon-wrap"><i class="icon sign-icon"></i></span>
               <p class="text">{{canSign?'每天签到':'已签到'}}</p>
             </div>
             <div class="item item-sm">
-              <i class="icon add-member-icon"></i>
+              <span class="icon-wrap"> <i class="icon add-member-icon"></i></span>
               <p class="text">邀请好友</p>
             </div>
-            <div class="item item-sm">
-              <i class="icon praise-icon"></i>
+            <router-link :to="{ name: 'recommend', params: {}}" class="item item-sm">
+              <span class="icon-wrap"><i class="icon praise-icon"></i></span>
               <p class="text">推荐买房</p>
-            </div>
-            <div class="item item-sm">
-              <i class="icon share-icon"></i>
+            </router-link>
+            <router-link :to="{ name: 'articleList', params: {}}"  class="item item-sm">
+              <span class="icon-wrap"> <i class="icon share-icon"></i></span>
               <p class="text">分享美文</p>
-            </div>
+            </router-link>
           </div>
         </div>
       </div>
       <div class="panel">
-        <div class="panel-hd">
+        <router-link :to="{ name: 'giftList', params: {}}"  class="panel-hd arrows-right">
           <span class="title">
             <i class="icon use-font-icon"></i>
             积分
           </span>
           <span class="link">更多</span>
-        </div>
+        </router-link>
         <div class="panel-bd">
           <div class="entry-list">
             <div class="entry ticket-entry">
@@ -82,35 +82,18 @@
               <i class="icon label-icon"></i>
             </div>
           </div>
-          <div class="entry-list">
-            <div class="entry-list">
-              <div v-for="(item,key,index) in giftList" class="entry gift-entry">
+          <div class="gift-entry-list">
+            <div v-for="(item,index) in giftList" class="entry gift-entry">
+              <router-link :to="{ name: 'giftDetail', params: {id:item.id}}">
                 <p class="name">{{item.name}}</p>
                 <p class="cost">{{item.score}}积分</p>
                 <img :src="item.image" :alt="item.name">
-              </div>
+              </router-link>
             </div>
           </div>
         </div>
       </div>
-      <div class="sign-in-modal" v-if="signInModalFlag">
-        <div class="mask"></div>
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="close-btn">
-              <i class="icon close-icon" @click="signInModalFlag=false"></i>
-            </div>
-          </div>
-          <div class="modal-body">
-            <i class="icon wealth-icon"></i>
-            <div class="reward">
-              <span>签到成功</span>
-              <span class="num">+{{scoreIncremental}}</span>
-              <i class="icon coin-icon"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+      <nav-bar></nav-bar>
     </div>
 </template>
 
@@ -143,8 +126,6 @@
               isFull:false,//true:已完善资料，false:未完善资料
               canSign:false,//true:可签到，false:已签到
               giftList:[],
-              signInModalFlag:false,
-              scoreIncremental:0,
             }
         },
         computed: {},
@@ -157,7 +138,6 @@
                 this.bannerList=data.adves;
                 this.isFull=data.isFull?true:false;
                 this.canSign=data.canSign?true:false
-                console.log('canSign:',this.canSign);
               }
             })
           },
@@ -177,19 +157,6 @@
               }
             })
           },
-          signIn:function () {
-            let fb=this.operationFeedback({text:'签到中...'});
-            Vue.api.signIn({...Vue.tools.sessionInfo()}).then((resp)=>{
-              if(resp.status=='success'){
-                this.canSign=false;
-                this.signInModalFlag=true;
-                this.scoreIncremental=resp.message;
-                fb.setOptions({type:'complete',text:'签到成功',delayForDelete:0});
-              }else{
-                fb.setOptions({type:'warn',text:resp.message});
-              }
-            });
-          }
         },
 
         created: function () {
@@ -199,6 +166,10 @@
           this.getHomeData();
           /**/
           this.getGiftList();
+          /*配置微信分享*/
+          Vue.tools.wxConfig({
+            jsApiList:['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          });;
         },
         route: {
            /* data: function(transition) {

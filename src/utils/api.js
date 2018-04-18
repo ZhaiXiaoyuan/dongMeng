@@ -40,7 +40,8 @@ export default {
     }
 
     /**/
-    let basicUrl='http://www.grfame.com/dmjywxs';
+  /*  let basicUrl='http://www.grfame.com/dmjywxs';*/
+    let basicUrl='/api';//临时测试
     Vue.api={
       //首页数据
       getHomeData:function (params) {
@@ -215,6 +216,14 @@ export default {
         return Vue.http.ajax({
           method: 'post',
           url: basicUrl+'/hs/info/getms',
+          params: params
+        });
+      },
+      //获取微信公众号JsapiConfig
+      getWeChatConfig:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/cus/info/wjc',
           params: params
         });
       },

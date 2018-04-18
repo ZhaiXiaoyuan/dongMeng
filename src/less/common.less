@@ -269,6 +269,100 @@ table {
   height: 0.4rem;
   background-size: 100% 100%;
 }
+.edit-icon{
+  display: inline-block;
+  background: url("../images/common/edit-icon.png") no-repeat;
+  width: 0.22rem;
+  height: 0.23rem;
+  background-size: 100% 100%;
+}
+.score-grey-icon{
+  display: inline-block;
+  background: url("../images/common/score-grey-icon.png") no-repeat;
+  width: 0.33rem;
+  height: 0.35rem;
+  background-size: 100% 100%;
+}
+.calendar-grey-icon{
+  display: inline-block;
+  background: url("../images/common/calendar-grey-icon.png") no-repeat;
+  width: 0.35rem;
+  height: 0.36rem;
+  background-size: 100% 100%;
+}
+.praise-grey-icon{
+  display: inline-block;
+  background: url("../images/common/praise-grey-icon.png") no-repeat;
+  width: 0.35rem;
+  height: 0.34rem;
+  background-size: 100% 100%;
+}
+
+.present-grey-icon{
+  display: inline-block;
+  background: url("../images/common/present-grey-icon.png") no-repeat;
+  width: 0.35rem;
+  height: 0.33rem;
+  background-size: 100% 100%;
+}
+.shopping-grey-icon{
+  display: inline-block;
+  background: url("../images/common/shopping-grey-icon.png") no-repeat;
+  width: 0.39rem;
+  height: 0.37rem;
+  background-size: 100% 100%;
+}
+.cup-grey-icon{
+  display: inline-block;
+  background: url("../images/common/cup-grey-icon.png") no-repeat;
+  width: 0.33rem;
+  height: 0.36rem;
+  background-size: 100% 100%;
+}
+.home-normal-icon{
+  display: inline-block;
+  background: url("../images/common/home-normal-icon.png") no-repeat;
+  width: 0.4rem;
+  height: 0.4rem;
+  background-size: 100% 100%;
+}
+.home-active-icon{
+  display: inline-block;
+  background: url("../images/common/home-active-icon.png") no-repeat;
+  width: 0.4rem;
+  height: 0.4rem;
+  background-size: 100% 100%;
+}
+.cup-ml-normal-icon{
+  display: inline-block;
+  background: url("../images/common/cup-ml-grey-icon.png") no-repeat;
+  width: 0.38rem;
+  height: 0.42rem;
+  background-size: 100% 100%;
+}
+.cup-ml-active-icon{
+  display: inline-block;
+  background: url("../images/common/cup-ml-active-icon.png") no-repeat;
+  width: 0.38rem;
+  height: 0.42rem;
+  background-size: 100% 100%;
+}
+.user-normal-icon{
+  display: inline-block;
+  background: url("../images/common/user-icon.png") no-repeat;
+  width: 0.35rem;
+  height: 0.4rem;
+  background-size: 100% 100%;
+}
+.user-active-icon{
+  display: inline-block;
+  background: url("../images/common/user-active-icon.png") no-repeat;
+  width: 0.35rem;
+  height: 0.4rem;
+  background-size: 100% 100%;
+}
+
+
 
 /*自定义样式*/
 .icon{
@@ -500,4 +594,29 @@ table {
     background: #12C2B3;
     border: none;
   }
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 500ms;
+  position: absolute;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }

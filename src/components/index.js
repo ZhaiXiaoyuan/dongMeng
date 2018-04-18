@@ -10,6 +10,8 @@ import ConfirmModal from './ConfirmModal';
 import GenCode from './GenCode';
 import ScrollLoad from './ScrollLoad';
 import ShareGuide from './ShareGuide';
+import SignInModal from './SignInModal';
+import NavBar from './NavBar';
 
 /*全局组件注册配置*/
 export default {
@@ -23,12 +25,15 @@ export default {
     Vue.component('GenCode',GenCode);
     Vue.component('ScrollLoad',ScrollLoad);
     Vue.component('ShareGuide',ShareGuide);
+    Vue.component('SignInModal',SignInModal);
+    Vue.component('NavBar',NavBar);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);
     let AlertModalConstructor=Vue.extend(AlertModal);
     let ConfrimModalConstructor=Vue.extend(ConfirmModal);
     let ShareGuideConstructor=Vue.extend(ShareGuide);
+    let SignInModalConstructor=Vue.extend(SignInModal);
     const functionObject={
       /**
        * 操作提示
@@ -181,7 +186,23 @@ export default {
         instance.options=options;
         instance.$mount();
         parentEle.appendChild(instance.$el);
-      }
+      },
+      /**
+       * 签到弹窗
+       * @param options
+       */
+      signInModal:function (options) {
+        options={...{
+          callback:null
+        },...options};
+        //
+        let parentEle=document.getElementById('app');
+        //
+        let instance=new SignInModalConstructor({});
+        instance.options=options;
+        instance.$mount();
+        parentEle.appendChild(instance.$el);
+      },
     }
     /**/
     Object.assign(Vue,functionObject);

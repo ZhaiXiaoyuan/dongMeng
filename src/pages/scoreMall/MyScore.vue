@@ -91,7 +91,7 @@
                   this.totals=data.totals;
                 }
                 let pager=data.pager;
-                this.pager.pageNum=pager.pageNumber+1;
+                this.pager.pageNum=this.pager.pageNum+1;
                 this.pager.maxPage=pager.totalPageCount;
                 this.pager.isLoading=false;
                 this.pager.isFinished=false;

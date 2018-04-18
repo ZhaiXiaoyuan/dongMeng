@@ -21,6 +21,7 @@ import BuildingContainer from './pages/building/Container'
 import Survey from './pages/building/Survey'
 import Layout from './pages/building/Layout'
 import Album from './pages/building/Album'
+import UserCenter from './pages/Account/UserCenter'
 
 Vue.use(Router)
 
@@ -177,7 +178,14 @@ const routes=[ {
       },
     }
   ]
-}]
+},{
+  path: '/userCenter',
+  name: 'userCenter',
+  component: UserCenter,
+  meta:{
+    title:'我的',
+  },
+},]
 
 const router= new Router({
   routes:routes,

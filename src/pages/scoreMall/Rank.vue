@@ -145,6 +145,7 @@
         </div>
       </div>
       <scroll-load :page="pager" @scrolling="getList()"></scroll-load>
+      <nav-bar></nav-bar>
     </div>
 </template>
 
