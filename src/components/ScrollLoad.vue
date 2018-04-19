@@ -73,7 +73,7 @@
           if(this.page.maxPage<newValue){
             this.page.isFinished = true;
           }
-        }
+        },
       },
         mounted: function () {
             if(!this.page){

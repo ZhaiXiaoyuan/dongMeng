@@ -22,6 +22,8 @@ import Survey from './pages/building/Survey'
 import Layout from './pages/building/Layout'
 import Album from './pages/building/Album'
 import UserCenter from './pages/Account/UserCenter'
+import Consultant from './pages/customerService/Consultant'
+import ExchangeFeedback from './pages/scoreMall/ExchangeFeedback'
 
 Vue.use(Router)
 
@@ -122,7 +124,7 @@ const routes=[ {
   name: 'recommendFeedback',
   component: RecommendFeedback,
   meta:{
-    title:'推荐买房',
+    title:'推荐成功',
   },
 },{
   path: '/recommendList',
@@ -185,11 +187,25 @@ const routes=[ {
   meta:{
     title:'我的',
   },
-},]
+},{
+  path: '/consultant',
+  name: 'consultant',
+  component: Consultant,
+  meta:{
+    title:'置业顾问',
+  },
+},{
+  path: '/exchangeFeedback/:id',
+  name: 'exchangeFeedback',
+  component: ExchangeFeedback,
+  meta:{
+    title:'兑换成功',
+  },
+}]
 
 const router= new Router({
   routes:routes,
-  mode: 'history',
+/*  mode: 'history',*/
   /* scrollBehavior: function (to, from, savedPosition) {
    return savedPosition || { x: 0, y: 0 }
    }*/

@@ -1,5 +1,5 @@
 <template>
-  <modal :options="options" ref="modal">
+  <modal :options="options" ref="modal" :class="'confirm-modal'">
     <div class="modal-header">
       <p class="title">{{options.title}}</p>
     </div>
@@ -8,13 +8,43 @@
     </div>
     <div class="modal-footer">
       <div class="handle-btn" @click="cancelHandle()">{{options.no}}</div>
-      <div class="handle-btn" @click="okHandle()">{{options.yes}}</div>
+      <div class="handle-btn ok-btn" @click="okHandle()">{{options.yes}}</div>
     </div>
   </modal>
 </template>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less">
-  .confirm-modal{}
+  .modal.confirm-modal{
+    .modal-content{
+      border-radius: 0.16rem !important;
+      overflow: hidden;
+      width: 75%;
+    }
+    .modal-body{
+      font-size: 0.32rem;
+      color: #333;
+      padding-bottom: 0rem;
+    }
+    .modal-footer{
+      padding: 0.5rem;
+      border-top:none;
+      .handle-btn{
+        width: 2rem;
+        height: 0.7rem;
+        line-height: 0.7rem;
+        text-align: center;
+        border: 1px solid #eee;
+        font-size: 0.32rem;
+        color: #333;
+      }
+      .ok-btn{
+        margin-left: 0.6rem;
+        border: 1px solid #12C2B3;
+        background: #12C2B3;
+        color: #fff;
+      }
+    }
+  }
 </style>
 <script>
   import Vue from 'vue'

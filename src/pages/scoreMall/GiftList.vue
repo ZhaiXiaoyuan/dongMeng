@@ -6,7 +6,7 @@
           <i class="icon diamond-icon"></i>
           <span class="score">可用积分：<em>{{score}}</em></span>
         </div>
-        <div class=" cm-btn btn">兑换记录</div>
+        <router-link :to="{ name: 'exchangeRecord', params: { }}"  class=" cm-btn btn">兑换记录</router-link>
       </div>
       <div class="list-panel">
         <ul class="entry-list">

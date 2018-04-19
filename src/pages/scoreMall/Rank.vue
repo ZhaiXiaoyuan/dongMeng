@@ -168,7 +168,8 @@
                 pageNum: 1,
                 pageSize: 20,
                 isLoading:false,
-                isFinished:false
+                isFinished:false,
+                maxPage:0,
               },
               entryList:[],
               listType:'All',//全部=All | 分享=Share | 邀请=Invite | 荐客=Recom
@@ -214,7 +215,10 @@
                   this.pager.maxPage=0;
                   this.pager.isLoading=false;
                   this.pager.isFinished=true;
+                }else{
+                  this.pager.maxPage=1;
                 }
+                console.log('test:',this.pager.maxPage);
               }
             })
           },

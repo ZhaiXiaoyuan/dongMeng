@@ -17,10 +17,10 @@
               <i class="icon building-icon"></i>
               <p class="text">楼盘风采</p>
             </router-link>
-            <div class="item">
+            <router-link :to="{ name: 'consultant', params: {}}" class="item">
               <i class="icon consultant-icon"></i>
               <p class="text">置业顾问</p>
-            </div>
+            </router-link>
             <div class="item">
               <i class="icon wechat-icon"></i>
               <p class="text">关注公众号</p>
@@ -46,7 +46,7 @@
               <span class="icon-wrap"><i class="icon sign-icon"></i></span>
               <p class="text">{{canSign?'每天签到':'已签到'}}</p>
             </div>
-            <div class="item item-sm">
+            <div class="item item-sm" @click="inviteModal()">
               <span class="icon-wrap"> <i class="icon add-member-icon"></i></span>
               <p class="text">邀请好友</p>
             </div>

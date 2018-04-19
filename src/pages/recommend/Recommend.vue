@@ -25,7 +25,7 @@
         <input class="cm-input" type="text" maxlength="200" v-model="remark" placeholder="客户其他信息、需求等">
       </div>
       <div class="handle-btn submit-btn" @click="submit()">提交信息</div>
-      <div class="handle-btn">查看我的推荐</div>
+      <router-link :to="{ name: 'recommendList',params:{}}" class="handle-btn">查看我的推荐</router-link>
       <div class="btn-wrap">
         <router-link :to="{ name: 'awardRule',params:{type:'recommendAward'}}"  tag="a" class="link-btn">奖励规则>></router-link>
       </div>

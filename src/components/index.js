@@ -12,6 +12,7 @@ import ScrollLoad from './ScrollLoad';
 import ShareGuide from './ShareGuide';
 import SignInModal from './SignInModal';
 import NavBar from './NavBar';
+import InviteModal from './InviteModal';
 
 /*全局组件注册配置*/
 export default {
@@ -27,6 +28,7 @@ export default {
     Vue.component('ShareGuide',ShareGuide);
     Vue.component('SignInModal',SignInModal);
     Vue.component('NavBar',NavBar);
+    Vue.component('InviteModal',InviteModal);
 
     /*方法调度方式*/
     let OperationFeedbackConstructor = Vue.extend(OperationFeedback);
@@ -34,6 +36,7 @@ export default {
     let ConfrimModalConstructor=Vue.extend(ConfirmModal);
     let ShareGuideConstructor=Vue.extend(ShareGuide);
     let SignInModalConstructor=Vue.extend(SignInModal);
+    let InviteModalConstructor=Vue.extend(InviteModal);
     const functionObject={
       /**
        * 操作提示
@@ -199,6 +202,23 @@ export default {
         let parentEle=document.getElementById('app');
         //
         let instance=new SignInModalConstructor({});
+        instance.options=options;
+        instance.$mount();
+        parentEle.appendChild(instance.$el);
+      },
+      /**
+       * 邀请弹窗
+       * @param options
+       */
+      inviteModal:function (options) {
+        options={...{
+          ok:null,
+          cancel:null
+        },...options};
+        //
+        let parentEle=document.getElementById('app');
+        //
+        let instance=new InviteModalConstructor({});
         instance.options=options;
         instance.$mount();
         parentEle.appendChild(instance.$el);

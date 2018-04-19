@@ -5,7 +5,7 @@
         <div class="panel-bd">
           <ul>
             <li>
-              <p>{{totals&&totals.urate}}%</p>
+              <p>{{totals&&totals.urate|toFixed(2)}}%</p>
               <p>有效推荐率</p>
             </li>
             <li>

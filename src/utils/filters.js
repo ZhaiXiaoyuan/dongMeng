@@ -142,3 +142,12 @@ Vue.filter('formatDate',function(date,fmt){
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
   return fmt;
 });
+
+/*手机号码文本显示格式*/
+Vue.filter('toFixed',function(text,count){
+  if(!text){
+    return;
+  }
+  text=typeof text=='string'?parseFloat(text):text;
+  return text.toFixed(count);
+});

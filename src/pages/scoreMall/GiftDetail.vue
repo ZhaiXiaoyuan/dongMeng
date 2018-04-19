@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="btn-list">
-        <div class="cm-btn btn">兑换记录</div>
+        <router-link :to="{ name: 'exchangeRecord', params: {}}" class="cm-btn btn">兑换记录</router-link>
         <div class="cm-btn btn" @click="exchangeGift()">立即兑换</div>
       </div>
     </div>
@@ -87,16 +87,34 @@
             })
           },
           exchangeGift:function () {
-            let params={
-              ...Vue.tools.sessionInfo(),
-              pid:this.$route.params.id
-            }
-            let fb=this.operationFeedback({text:'兑换中...'});
-            Vue.api.exchangeGift(params).then((resp)=>{
-              if(resp.status=='success'){
-                fb.setOptions({type:'complete',text:'兑换成功'});
-              }else{
-                fb.setOptions({type:'warn',text:resp.message});
+            this.confirm({
+              title:'',
+              html:'是否确认兑换此礼品',
+              ok:()=>{
+                let params={
+                  ...Vue.tools.sessionInfo(),
+                  pid:this.$route.params.id
+                }
+                let fb=this.operationFeedback({text:'兑换中...'});
+                Vue.api.exchangeGift(params).then((resp)=>{
+                  if(resp.status=='success'){
+                    let data=JSON.parse(resp.message);
+                    localStorage.setItem(data.id,JSON.stringify(data));
+                    this.$router.push({name:'exchangeFeedback',params:{id:data.id}});
+                    fb.setOptions({type:'complete',text:'兑换成功',delayForDelete:0});
+                  }else{
+                    fb.setOptions({type:'warn',text:resp.message,delayForDelete:0});
+                    this.confirm({
+                      title:'',
+                      html:resp.message,
+                      yes:'赚购房币',
+                      no:'确定',
+                      ok:()=>{
+                        this.$router.push({name:'articleList'});
+                      }
+                    })
+                  }
+                });
               }
             });
           }
@@ -107,6 +125,7 @@
         mounted: function () {
           /*获取礼品详情*/
           this.getGiftDetail();
+
         },
         route: {
            /* data: function(transition) {

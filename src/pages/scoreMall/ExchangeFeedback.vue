@@ -2,19 +2,23 @@
 <template>
     <div class="cm-feedback-page">
       <i class="icon success-status-icon"></i>
-      <p class="title">推荐客户提交成功</p>
+      <p class="title">兑换成功</p>
       <div class="desc">
-        <p>我们会第一时间联系被推荐的客户，</p>
-        <p>以确认信息的有效性，感谢您的付出</p>
+        <p>兑换码 {{entry.excode}}</p>
+        <p style="margin-top: 0.2rem;">领取时间：缺字段至{{entry.rcvEnddate}}</p>
+        <p>每周六、周日上午9点至下午6点</p>
       </div>
-      <router-link :to="{ name: 'recommend', params: {}}" tag="div" class="handle-btn ok-btn" >继续推荐客户</router-link >
-      <div class="handle-btn">查看已推荐的客户</div>
+      <router-link :to="{ name: 'giftList', params: {}}" tag="div" class="handle-btn ok-btn" >继续兑换</router-link >
+      <router-link :to="{ name: 'exchangeRecord', params: {}}" class="handle-btn">我的兑换</router-link>
     </div>
 </template>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less" scoped>
+  p{
+    line-height: 0.44rem;
+  }
 </style>
 
 <script>
@@ -26,7 +30,7 @@
         },
         data: function () {
             return {
-
+              entry:{}
             }
         },
         computed: {},
@@ -38,6 +42,7 @@
         created: function () {
         },
         mounted: function () {
+          this.entry=JSON.parse(localStorage.getItem(this.$route.params.id));
         },
         route: {
            /* data: function(transition) {

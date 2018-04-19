@@ -47,7 +47,6 @@
             Vue.api.getUserInfo({...Vue.tools.sessionInfo()}).then((resp)=>{
               if(resp.status=='success'){
                 this.userInfo=JSON.parse(resp.message);
-                console.log('this.userInfo:',this.userInfo);
               }else{
 
               }
@@ -66,7 +65,7 @@
             Vue.api.bindPhone({...Vue.tools.sessionInfo(),username:this.name,mobilephone:this.phone,mcode:this.code,}).then((resp)=>{
               if(resp.status=='success'){
                 fb.setOptions({type:'complete',text:'保存成功'});
-                this.$router.push({name:'home',params:{}});
+                this.$router.push({name:'userCenter',params:{}});
               }else{
                 fb.setOptions({type:'warn',text:resp.message});
               }
