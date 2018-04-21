@@ -42,7 +42,7 @@
               <span class="icon-wrap"><i class="icon book-icon"></i></span>
               <p class="text">完善资料</p>
             </router-link>
-            <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull" @click="signInModal()">
+            <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull" @click="signIn()">
               <span class="icon-wrap"><i class="icon sign-icon"></i></span>
               <p class="text">{{canSign?'每天签到':'已签到'}}</p>
             </div>
@@ -157,6 +157,13 @@
               }
             })
           },
+          signIn:function () {
+            Vue.signInModal({
+              callback:()=>{
+                this.canSign=false;
+              }
+            });
+          }
         },
 
         created: function () {
@@ -166,10 +173,6 @@
           this.getHomeData();
           /**/
           this.getGiftList();
-          /*配置微信分享*/
-          Vue.tools.wxConfig({
-            jsApiList:['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-          });;
         },
         route: {
            /* data: function(transition) {

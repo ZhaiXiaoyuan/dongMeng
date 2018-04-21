@@ -196,7 +196,7 @@ export default {
        */
       signInModal:function (options) {
         options={...{
-          callback:null
+          callback:null,
         },...options};
         //
         let parentEle=document.getElementById('app');

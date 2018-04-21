@@ -77,10 +77,10 @@ export default {
         },
         sessionInfo:function () {
           let session=JSON.parse(JSON.parse(Vue.cookie.get('session')));
-          var random = '';
+        /*  var random = '';
           for(var i = 0; i < 6; i += 1){
             random += Math.floor(Math.random() * 10);
-          }
+          }*/
           let timestamp=this.genTimestamp();
           let number='oP9HKwOlSMaYlAbZo2dDhcC1zlhU';//临时测试
           let token='60e99e7e3a454ddfa5797afe41cb00da';//临时测试
@@ -137,6 +137,38 @@ export default {
             }else{
               options.callback&&options.callback(false);
             }
+          });
+        },
+        shareConfig:function (options) {
+          console.log('options:',options);
+          var shareInfo={
+            title: options.title,
+            desc:options.desc,
+            link: options.link,
+            imgUrl: options.imgUrl,
+            trigger: function (res) {
+              // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回.
+              /*   alert('click shared');*/
+            },
+            success: function (res) {
+              /*  alert('shared success+'+JSON.stringify(shareData));*/
+              //some thing you should do
+              options.callback&&options.callback();
+            },
+            cancel: function (res) {
+              /*  alert('shared cancle');*/
+            },
+            fail: function (res) {
+              /* alert(JSON.stringify(res));*/
+            }
+          };
+          wx.onMenuShareTimeline(shareInfo);  //分享微信朋友圈
+          wx.onMenuShareAppMessage(shareInfo);    //分享给朋友
+          wx.onMenuShareQQ(shareInfo);    //分享到QQ
+          wx.onMenuShareWeibo(shareInfo); //分享到腾讯微博
+
+          wx.error(function (res) {
+            alert(res.errMsg);
           });
         }
       }

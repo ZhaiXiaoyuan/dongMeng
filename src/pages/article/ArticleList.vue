@@ -18,10 +18,10 @@
               <p class="text">分享此篇文章获得{{entry.score}}积分</p>
             </div>
             <p class="cm-text title">{{entry.title}}</p>
-            <p class="cm-text sub" v-html="entry.content"></p>
+            <p class="cm-text sub">{{entry.remark}}</p>
             <p class="addition">
               <span class="date">发表于{{entry.deploytime|formatDate('yyyy年MM月dd日')}}</span>
-              <span class="label">立刻分享</span>
+              <span class="label">阅读全文</span>
             </p>
           </router-link>
         </ul>

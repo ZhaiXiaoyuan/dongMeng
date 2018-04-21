@@ -40,8 +40,11 @@ export default {
     }
 
     /**/
-    let basicUrl='http://www.grfame.com/dmjywxs';
-  /*  let basicUrl='/api';//临时测试*/
+/*    let basicUrl='http://www.grfame.com/dmjywxs';*/
+    let basicUrl='/api';//临时测试
+    let test='http://www.grfame.com/dmjywxs/cus/auth/wxred?redirect=/test.html?id=233';
+    console.log('dd:','http://www.grfame.com/dmjywxs/cus/auth/wxred?redirect='+encodeURIComponent('http://www.grfame.com/hcr/#/home?1=1'));
+    console.log('dd2:','http://www.grfame.com/dmjywxs/cus/auth/wxred?redirect=http://www.grfame.com/hcr/#/home?1=1');
     Vue.api={
       //首页数据
       getHomeData:function (params) {
@@ -224,6 +227,14 @@ export default {
         return Vue.http.ajax({
           method: 'post',
           url: basicUrl+'/cus/info/wjc',
+          params: params
+        });
+      },
+      //分享美文-接收分享美文通知
+      getShareArticelAward:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/sart',
           params: params
         });
       },

@@ -31,6 +31,7 @@
         watch: {},
         methods: {
           getArticleDetail:function () {
+            let that=this;
             let params={
               ...Vue.tools.sessionInfo(),
               aid:this.$route.params.id
@@ -38,6 +39,28 @@
             Vue.api.getArticleDetail(params).then((resp)=>{
               if(resp.status=='success'){
                 this.article=JSON.parse(resp.message);
+
+                /*微信分享配置*/
+                Vue.tools.wxConfig({
+                  jsApiList:['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                  callback:(data)=>{
+                    if(data){
+                      Vue.tools.shareConfig({
+                        title: that.article.title,
+                        desc:that.article.remark,
+                        link: window.location.href,
+                        imgUrl: that.article.titlepicUrl,
+                        callback:()=>{
+                          Vue.api.getShareArticelAward({...Vue.tools.sessionInfo(),aid:that.article.id}).then((resp)=>{
+                            if(resp.status=='success'){
+                              Vue.operationFeedback({type:'complete',text:'分享成功，购房币+'+resp.message});
+                            }
+                          });
+                        }
+                      });
+                    }
+                  }
+                });
               }
             });
           }
@@ -48,6 +71,7 @@
         mounted: function () {
           /*获取美文数据*/
           this.getArticleDetail();
+          /**/
         },
         route: {
            /* data: function(transition) {

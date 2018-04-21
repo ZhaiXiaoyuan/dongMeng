@@ -24,7 +24,7 @@
              </span>
              <span class="field">我的积分</span>
           </router-link>
-          <li class="item arrows-right" :class="{'cm-disabled':!canSign}" @click="signInModal()">
+          <li class="item arrows-right" :class="{'cm-disabled':!canSign}" @click="signIn()">
              <span class="icon-wrap">
                <i class="icon calendar-grey-icon"></i>
              </span>
@@ -104,6 +104,13 @@
               }
             })
           },
+          signIn:function () {
+            Vue.signInModal({
+              callback:()=>{
+                this.canSign=false;
+              }
+            });
+          }
 
         },
         created: function () {
