@@ -8,8 +8,6 @@ import 'vue2-animate/dist/vue2-animate.min.css'
 import vueCookie from 'vue-cookie'
 import App from './App'
 import router from './router'
-import iconfont from '../static/lib/iconfont/iconfont'
-/*import $ from 'jquery'*/
 import api from './utils/api'
 import tools from './utils/tools'
 import './utils/filters'

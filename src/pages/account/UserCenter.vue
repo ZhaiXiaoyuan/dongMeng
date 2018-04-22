@@ -6,12 +6,12 @@
           <img :src="userInfo&&userInfo.touxiang?userInfo.touxiang:defaultAvatar">
         </div>
         <p class="name">{{userInfo&&userInfo.username?userInfo.username:'微信姓名'}}</p>
-        <p class="phone" v-if="userInfo&&userInfo.isfull">电话 {{userInfo.mobilephone}}</p>
-        <router-link :to="{ name: 'completeData', params: {}}" class="handle-btn" v-if="userInfo&&!userInfo.isfull">
+        <p class="phone" v-if="userInfo&&userInfo.mobilephone">电话 {{userInfo.mobilephone}}</p>
+        <router-link :to="{ name: 'completeData', params: {}}" class="handle-btn" v-if="userInfo&&!userInfo.mobilephone">
           <i class="icon edit-icon"></i>
           完善资料
         </router-link>
-        <router-link :to="{ name: 'editData', params: {}}" class="handle-btn"  v-if="userInfo&&userInfo.isfull">
+        <router-link :to="{ name: 'editData', params: {}}" class="handle-btn"  v-if="userInfo&&userInfo.mobilephone">
           <i class="icon edit-icon"></i>
           修改资料
         </router-link>
@@ -90,6 +90,7 @@
             Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{
               if(resp.status=='success'){
                 var data=JSON.parse(resp.message);
+                this.isFull=data.isFull?true:false;
                 this.canSign=data.canSign?true:false
               }
             })

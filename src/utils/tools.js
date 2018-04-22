@@ -1,8 +1,6 @@
 /**
  * Created by Administrator on 2016/9/27 0027.
  */
-
-
 /*一般的工具方法*/
 import Vue from 'vue'
 import router from '../router'
@@ -75,20 +73,75 @@ export default {
             if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
           return fmt;
         },
+        /**
+         *获取地址了参数
+         * @param url 链接
+         * @returns {Object}
+         */
+        getRequest:function (url) {
+          url=url?url:location.href;
+          var theRequest = new Object();
+          if(url.indexOf("?") != -1)//url中存在问号，也就说有参数。
+          {
+            var str = url.split('?')[1];
+            var strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++)
+            {
+              theRequest[strs[i].split("=")[0]]=decodeURI(strs[i].split("=")[1]);
+            }
+
+          }
+          return theRequest;
+        },
+        /*将json对象转成地址栏参数*/
+        toQueryString:function (obj) {
+          var ret = [];
+          function toQueryPair(key, value) {
+            if (typeof value == 'undefined'){
+              return key;
+            }
+            return key + '=' + encodeURIComponent(value === null ? '' : String(value));
+          }
+          for(var key in obj){
+            key = encodeURIComponent(key);
+            var values = obj[key];
+            if(values && values.constructor == Array){//数组
+              var queryValues = [];
+              for (var i = 0, len = values.length, value; i < len; i++) {
+                value = values[i];
+                queryValues.push(toQueryPair(key, value));
+              }
+              ret = ret.concat(queryValues);
+            }else{ //字符串
+              ret.push(toQueryPair(key, values));
+            }
+          }
+          return ret.join('&');
+        },
+        editUrl:function (url,params) {
+          var pRequest=this.getRequest(url);
+          return url.split('?')[0]+'?'+this.toQueryString(Object.assign({},pRequest,params))
+        },
+        toAuth:function (type,redirect) {
+          if(redirect.indexOf('?')>-1){
+            redirect+='&1='+type;
+          }else{
+            redirect+='?1='+type;
+          }
+          let link=window.location.origin+'/dmjywxs/cus/auth/wxred?redirect='+encodeURIComponent(redirect);
+          window.location.href=link;
+        },
         sessionInfo:function () {
-          let session=JSON.parse(JSON.parse(Vue.cookie.get('session')));
-        /*  var random = '';
-          for(var i = 0; i < 6; i += 1){
-            random += Math.floor(Math.random() * 10);
-          }*/
           let timestamp=this.genTimestamp();
-          let number='oP9HKwOlSMaYlAbZo2dDhcC1zlhU';//临时测试
-          let token='60e99e7e3a454ddfa5797afe41cb00da';//临时测试
+          let number=localStorage.getItem('number');
+          if(!number||number==''){//如果openid为空，则重新进行默认授权
+            this.toAuth(1,window.location.href);
+          }
           return{
             timeStamp:timestamp,
             number:number,
-            token:token,//临时测试，不需要传
-            signature:md5.hex('timestamp='+timestamp+'&number='+number+'&token='+token),
+          /*  token:token,//不需要传*/
+            signature:md5.hex('timestamp='+timestamp+'&number='+number+'&token='),
           }
         },
         /*获取事件当前元素*/
@@ -113,7 +166,7 @@ export default {
           }
         },
         wxConfig:function (options) {
-          var params=$.extend({
+          var params=Object.assign({
               ...this.sessionInfo(),
             url:window.location.href,
           },options.params);
@@ -170,7 +223,44 @@ export default {
           wx.error(function (res) {
             alert(res.errMsg);
           });
+        },
+        /**/
+        checkUserInfo:function (callback) {
+          let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
+          let toCompleteData=()=>{
+            if(userInfo.touxiang){
+              router.push({name:'completeData'});
+            }else{
+              this.toAuth(2,window.location.href.split('#')[0]+'#/completeData');
+            }
+          }
+          if(userInfo){
+            if(userInfo.mobilephone){
+              callback&&callback();
+            }else{
+              toCompleteData();
+            }
+          }else{
+            Vue.api.getUserInfo({...this.sessionInfo()}).then((resp)=>{
+              if(resp.status=='success'){
+                userInfo=JSON.parse(resp.message);
+                if(userInfo){
+                  if(userInfo.mobilephone){
+                    callback&&callback();
+                  }else{
+                    toCompleteData();
+                  }
+                }
+                sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
+              }else{
+
+              }
+            })
+          }
         }
       }
+
+      Object.assign(Vue, Vue.tools);
+      Object.assign(Vue.prototype, Vue.tools);
     },
 }

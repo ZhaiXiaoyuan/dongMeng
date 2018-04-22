@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/Home.vue'
-import Login from './pages/account/Login.vue'
-import ForgetPassword from './pages/account/ForgetPassword.vue'
-import Register from './pages/account/Register.vue'
 import GiftList from './pages/scoreMall/GiftList.vue'
 import GiftDetail from './pages/scoreMall/GiftDetail.vue'
 import ExchangeRecord from './pages/scoreMall/ExchangeRecord'
@@ -34,27 +31,6 @@ const routes=[ {
   component: Home,
   meta:{
     title:'首页',
-  },
-},{
-  path: '/login',
-  name: 'login',
-  component: Login,
-  meta:{
-    title:'登录',
-  },
-},{
-  path: '/register/:step?',
-  name: 'register',
-  component: Register,
-  meta:{
-    title:'注册',
-  },
-},{
-  path: '/forgetPassword/:step?',
-  name: 'forgetPassword',
-  component: ForgetPassword,
-  meta:{
-    title:'忘记密码',
   },
 },{
   path: '/giftList',
@@ -213,6 +189,9 @@ const router= new Router({
 
 //注册全局导航守卫
 router.afterEach((to, from) => {
+  if(to.query.openid){
+    localStorage.setItem('number',to.query.openid);
+  }
   //修改页面title
   document.title = to.meta.title;
 })

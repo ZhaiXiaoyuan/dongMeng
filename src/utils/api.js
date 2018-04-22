@@ -14,7 +14,7 @@ export default {
       next((response) => {
         //对于有作登录状态的接口你，未未登录时跳转到登录页
         if(response.status==401){
-          router.push({name:'login'});
+         /* router.push({name:''});*/
         }
         return response
       });
@@ -42,9 +42,6 @@ export default {
     /**/
 /*    let basicUrl='http://www.grfame.com/dmjywxs';*/
     let basicUrl='/api';//临时测试
-    let test='http://www.grfame.com/dmjywxs/cus/auth/wxred?redirect=/test.html?id=233';
-    console.log('dd:','http://www.grfame.com/dmjywxs/cus/auth/wxred?redirect='+encodeURIComponent('http://www.grfame.com/hcr/#/home?1=1'));
-    console.log('dd2:','http://www.grfame.com/dmjywxs/cus/auth/wxred?redirect=http://www.grfame.com/hcr/#/home?1=1');
     Vue.api={
       //首页数据
       getHomeData:function (params) {
