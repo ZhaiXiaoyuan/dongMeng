@@ -23,7 +23,7 @@
               <i class="icon camera-active-icon active-icon"></i>
               <p>相册</p>
             </router-link>
-            <a href="tel:" class="item" >
+            <a href="tel:0759-2088888" class="item" >
               <i class="icon phone-normal-icon normal-icon"></i>
               <i class="icon phone-active-icon active-icon"></i>
               <p>电话</p>

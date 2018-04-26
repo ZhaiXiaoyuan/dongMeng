@@ -228,12 +228,16 @@ export default {
         checkUserInfo:function (callback) {
           let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
           let toCompleteData=()=>{
-            if(userInfo.touxiang){
+            //临时测试
+            if(false&&userInfo.touxiang){
               router.push({name:'completeData'});
             }else{
               this.toAuth(2,window.location.href.split('#')[0]+'#/completeData');
             }
           }
+          //临时测试
+          toCompleteData();
+          return;
           if(userInfo){
             if(userInfo.mobilephone){
               callback&&callback();

@@ -4,7 +4,7 @@
       <div class="banner-panel">
         <swiper :options="swiperOption">
           <swiper-slide v-for="(item,index) in bannerList" :key="item.id">
-            <a v-bind:href="item.url"><img :src="item.imageUrl"></a>
+            <a style="display:block;width: 100%;height: 100%" v-bind:href="item.url" :style="{background: 'url('+item.imageUrl+') no-repeat center',backgroundSize: 'cover'}"></a>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
 
@@ -21,10 +21,10 @@
               <i class="icon consultant-icon"></i>
               <p class="text">置业顾问</p>
             </router-link>
-            <div class="item">
+            <a class="item" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MjM5ODU0NTgwMw==&scene=110#wechat_redirect">
               <i class="icon wechat-icon"></i>
               <p class="text">关注公众号</p>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -116,6 +116,7 @@
         data: function () {
             return {
               swiperOption: {
+                autoplay:true,
                 pagination: {
                   el: '.swiper-pagination'
                 }
@@ -163,7 +164,7 @@
                 this.canSign=false;
               }
             });
-          }
+          },
         },
 
         created: function () {

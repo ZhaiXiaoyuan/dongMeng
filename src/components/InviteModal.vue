@@ -15,8 +15,8 @@
             </p>
             <p>
               <i class="icon coin-icon"></i>
-              <em>50购房币/人 </em>
-              <span>每人每日最多10000次</span>
+              <em>{{inviteAwardRule.directScore }}购房币/人 </em>
+              <span>每人每日最多{{inviteAwardRule.directLimit }}次</span>
             </p>
           </div>
         </li>
@@ -29,8 +29,8 @@
             </p>
             <p>
               <i class="icon coin-icon"></i>
-              <em>0购房币/人</em>
-              <span>每人每日最多10000次</span>
+              <em>{{inviteAwardRule.indirectScore}}购房币/人</em>
+              <span>每人每日最多{{inviteAwardRule.indirectLimit}}次</span>
             </p>
           </div>
         </li>
@@ -143,7 +143,8 @@
     },
     data: function () {
       return {
-
+        inviteAwardRule:{},
+        logo:require('../images/common/logo.jpg'),
       }
     },
     computed: {},
@@ -161,13 +162,40 @@
       },
       open:function () {
         this.show=true;
+      },
+      getInviteAwardRule:function () {
+        Vue.api.getInviteAwardRule({...Vue.tools.sessionInfo()}).then((resp)=>{
+          if(resp.status=='success'){
+            this.inviteAwardRule=JSON.parse(resp.message);
+          }
+        })
       }
     },
     created: function () {
 
     },
     mounted: function () {
-
+      /**/
+      this.getInviteAwardRule();
+      /**/
+      /*微信分享配置*/
+      Vue.tools.wxConfig({
+          jsApiList:['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          callback:(data)=>{
+          if(data){
+            let temRequest=
+            Vue.tools.shareConfig({
+                title: '鼎能·东盟城',
+                desc:'做任务赢取积分',
+                link: Vue.tools.editUrl(window.location.href,{sopenid:Vue.tools.sessionInfo().number,openid:null}).replace('&openid=',''),
+                imgUrl: window.location.origin+this.logo,
+                callback:()=>{
+                Vue.operationFeedback({type:'complete',text:'分享成功'});
+          }
+          });
+          }
+        }
+    });
     }
   };
 </script>

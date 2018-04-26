@@ -4,20 +4,20 @@
      <div class="staff-info-panel">
        <img class="avatar" :src="defaultAvatar">
        <p class="phone">
-         00-238748
-         <a href="tel:00-238748">拨打</a>
+         0759-2088888
+         <a href="tel:0759-2088888">拨打</a>
        </p>
      </div>
      <div class="site-panel">
        <div class="item">
          <span class="field">服务时间</span>
-         <div class="value">周一至周五8:00-22:00</div>
+         <div class="value">周一至周日9：00-21：00</div>
        </div>
        <div class="item">
          <span class="field">营销中心地址</span>
          <div class="value">
-           <p>广东省广州市天河某某某某地方</p>
-           <p>某某地方某某地方</p>
+           <p>广东省湛江市东盟大道8号</p>
+           <p>东盟城营销中心</p>
          </div>
        </div>
      </div>

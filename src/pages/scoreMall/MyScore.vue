@@ -19,8 +19,8 @@
       </div>
       <div class="list-panel">
         <div class="panel-hd">
-          <span :class="{'active':listType=='income'}" @click="setListType('income')">收入{{totals&&totals.psum}}</span>
-          <span :class="{'active':listType=='cost'}" @click="setListType('cost')">支出{{totals&&totals.msum}}</span>
+          <span :class="{'active':listType=='income'}" @click="setListType('income')">收入{{sumData.psum}}</span>
+          <span :class="{'active':listType=='cost'}" @click="setListType('cost')">支出{{sumData.msum}}</span>
         </div>
         <div class="panel-bd">
           <ul class="entry-list">
@@ -55,6 +55,7 @@
         },
         data: function () {
             return {
+              sumData:{},
               pager:{
                 pageNum: 1,
                 pageSize: 20,
@@ -109,6 +110,14 @@
           setListType:function (value) {
             this.listType=value;
             this.getList(true);
+          },
+          getSum:function () {
+            Vue.api.qawardsum({...Vue.tools.sessionInfo()}).then((resp)=>{
+              if(resp.status=='success'){
+                this.sumData=JSON.parse(resp.message);
+                console.log('this.sumData:',this.sumData);
+              }
+            });
           }
         },
 
@@ -117,6 +126,8 @@
         mounted: function () {
           /*获取可用积分*/
           this.getScore();
+          /**/
+          this.getSum();
           /**/
           this.getList(true);
 

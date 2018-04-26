@@ -48,8 +48,8 @@
         </div>
       </div>
       <div class="btn-list">
-        <router-link :to="{ name: 'exchangeRecord', params: {}}" class="cm-btn btn">兑换记录</router-link>
-        <div class="cm-btn btn" @click="exchangeGift()">立即兑换</div>
+        <div :to="{ name: 'exchangeRecord', params: {}}" class="cm-btn btn">兑换记录</div>
+        <div class="cm-btn btn" @click="checkUserInfo(()=>{exchangeGift()})">立即兑换</div>
       </div>
     </div>
 </template>

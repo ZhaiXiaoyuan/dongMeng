@@ -7,11 +7,11 @@
       </div>
       <div class="list-panel">
         <ul class="entry-list">
-          <li v-for="(item,index) in recordList" class="entry">
+          <li v-for="(item,index) in recordList" class="entry" :class="{'cm-disabled':item.rcvstatus==30||item.rcvstatus==40}">
             <div class="entry-bd">
               <p class="name">{{item.productName}}</p>
-              <p class="info">领取时间：缺字段至缺字段</p>
-              <p class="info">领取地址：缺字段</p>
+              <p class="info">领取时间：{{item.rcvStartdate}}至{{item.rcvEnddate}}</p>
+              <p class="info">领取地址：{{item.rcvAddress}}</p>
             </div>
             <div class="entry-ft">
               <div class="border">
@@ -21,7 +21,15 @@
               </div>
               <div class="code">
                 <p class="code-content">兑  换  码：{{item.excode}}</p>
-                <p class="status">未领取(枚举不明)</p>
+                <p class="status" v-if="item.exstatus!=30">
+                  <span class="cm-active" v-if="item.exstatus==20">未兑换</span>
+                  <span v-if="item.exstatus==30">已兑换</span>
+                </p>
+                <p class="status" v-if="item.exstatus==30">
+                  <span class="cm-active" v-if="item.rcvstatus==20">未领取</span>
+                  <span  v-if="item.rcvstatus==30">已领取</span>
+                  <span v-if="item.rcvstatus==40">已过期</span>
+                </p>
               </div>
             </div>
           </li>

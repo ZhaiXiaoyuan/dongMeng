@@ -40,8 +40,8 @@ export default {
     }
 
     /**/
-/*    let basicUrl='http://www.grfame.com/dmjywxs';*/
-    let basicUrl='/api';//临时测试
+    let basicUrl='http://www.grfame.com/dmjywxs';
+ /*   let basicUrl='/api';//临时测试*/
     Vue.api={
       //首页数据
       getHomeData:function (params) {
@@ -232,6 +232,22 @@ export default {
         return Vue.http.ajax({
           method: 'post',
           url: basicUrl+'/mk/recus/sart',
+          params: params
+        });
+      },
+      //积分奖励-我的积分清单-收支汇总
+      qawardsum:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/award/qawardsum',
+          params: params
+        });
+      },
+      //积分奖励-我的积分清单-收支汇总
+      getInviteAwardRule:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/icrule',
           params: params
         });
       },
