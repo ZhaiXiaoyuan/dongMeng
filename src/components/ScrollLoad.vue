@@ -2,7 +2,8 @@
 <template>
   <div>
     <div class="cm-loading" v-show="page&&page.isLoading&&!page.isFinished">
-      <mt-spinner type="snake" color="#00CDB2" :size="25"></mt-spinner>
+      <!--<mt-spinner type="snake" color="#00CDB2" :size="25"></mt-spinner>-->
+      <i class="icon loading-icon"></i>
     </div>
     <div class="cm-loading" v-show="page&&page.maxPage!=0&&!page.isLoading&&page.isFinished">
       <p class="no-more">{{noData}}</p>
@@ -13,8 +14,8 @@
   </div>
 </template>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" rel="stylesheet/less">
-  .cm-loading{
+<style lang="less" rel="stylesheet/less" scoped>
+/*  .cm-loading{
     margin: 0.2rem 0rem;
     text-align: center;
     >span{
@@ -27,15 +28,52 @@
       font-size: 0.28rem;
       color: #999;
     }
+  }*/
+.cm-loading{
+  text-align: center;
+}
+.icon{
+  display: none;
+  width:0.48rem;
+  height: 0.48rem;
+}
+@-webkit-keyframes loading-animate {
+  0% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
+@keyframes loading-animate {
+  0% {
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  100% {
+    -webkit-transform: rotate3d(0, 0, 1, 360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
+.loading-icon{
+  display: inline-block;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4=) no-repeat;
+  background-size: 100% 100%;
+  -webkit-animation: loading-animate 1s steps(12, end) infinite;
+  animation: loading-animate 1s steps(12, end) infinite;
+}
 </style>
 
 <script>
-
     import Vue from 'vue'
-    import $ from 'jquery'
+
     /*需要用@scrolling 传入滚动的回调函数*/
     export default {
+        components: {
+
+        },
         props: {
             /**
              * 需要传进来的分页参数
@@ -60,7 +98,8 @@
             document: {
                 required: false,
                 default: function () {
-                    return document;
+                    /*return document;*/
+                    return document.body;
                 }
             },
             noData:{
@@ -80,14 +119,14 @@
                 return;
             }
             //监听滚动事件
-          $(this.window).bind('scroll', function () {
+          this.window.addEventListener('scroll', function () {
             /*如果是加载中，则返回*/
             if(this.page.isLoading || this.page.isFinished) {
               return;
             }else{
-              var winTop = $(this.window).scrollTop(); //当前滚动条的高度
-              var docHeight = $(this.document).height();   //页面总高度
-              var winHeight = $(this.window).height();     //窗口高度
+              var winTop = document.documentElement.scrollTop;//当前滚动条的高度
+              var docHeight = this.document.scrollHeight;   //页面总高度
+              var winHeight = this.window.innerHeight ;     //窗口高度
               /*触发高度比*/
               var  scrolltrigger = 0.98;
               /*什么时候会触发翻页*/

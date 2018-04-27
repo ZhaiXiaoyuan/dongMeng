@@ -100,16 +100,16 @@ export default {
        * 操作提示器
        * @param options
        */
-      indicator:function (options) {
+   /*   indicator:function (options) {
         Vue.$indicator.open({
           spinnerType:'triple-bounce'
         });
       },
-      /**
+      /!**
        * 操作反馈
        * @param options
-       */
-      handleFeedback:function (options) {
+       *!/*/
+/*      handleFeedback:function (options) {
         options={...{
           type:'handling',//提示类型，handling:操作中，warn:警告，complete:成功，clear:清除
           duration:3000
@@ -119,7 +119,7 @@ export default {
           if(options.type=='handling'){
             Vue.$indicator.open({
               text: options.text,
-            /*  spinnerType: 'fading-circle',*/
+            /!*  spinnerType: 'fading-circle',*!/
               duration:-1
             });
           }else{
@@ -133,7 +133,7 @@ export default {
         return{
           setOptions:setOptions
         }
-      },
+      },*/
       /**
        * 提示弹窗
        * @param options

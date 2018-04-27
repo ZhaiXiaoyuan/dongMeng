@@ -128,7 +128,8 @@ export default {
           }else{
             redirect+='?1='+type;
           }
-          let link=window.location.origin+'/dmjywxs/cus/auth/wxred?redirect='+encodeURIComponent(redirect);
+          let link=window.location.origin+'/dmjywxs/cus/auth/wxred?1='+type+'&redirect='+encodeURIComponent(redirect);
+    /*      console.log('test:',link);*/
           window.location.href=link;
         },
         sessionInfo:function () {
@@ -228,16 +229,12 @@ export default {
         checkUserInfo:function (callback) {
           let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
           let toCompleteData=()=>{
-            //临时测试
-            if(false&&userInfo.touxiang){
+            if(userInfo.touxiang){
               router.push({name:'completeData'});
             }else{
               this.toAuth(2,window.location.href.split('#')[0]+'#/completeData');
             }
           }
-          //临时测试
-          toCompleteData();
-          return;
           if(userInfo){
             if(userInfo.mobilephone){
               callback&&callback();

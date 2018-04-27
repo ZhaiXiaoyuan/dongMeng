@@ -22,8 +22,15 @@
         border-radius: 50%;
       }
     }
-    .name{
+    .text-row{
+      position: relative;
       margin-top: 0.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .name{
       font-size: 0.32rem;
       color: #333;
     }
@@ -34,11 +41,13 @@
     }
     .handle-btn{
       position: absolute;
-      top:2.2rem;
+      top:0rem;
       right: 0rem;
+      bottom: 0rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: auto;
       width: 1.55rem;
       height: 0.4rem;
       font-size: 0.24rem;

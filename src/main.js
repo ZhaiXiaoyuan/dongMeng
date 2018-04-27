@@ -2,8 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import vueResource from 'vue-resource'
-import Mint from 'mint-ui';
-import 'mint-ui/lib/style.css'
+/*import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css'*/
 import 'vue2-animate/dist/vue2-animate.min.css'
 import vueCookie from 'vue-cookie'
 import App from './App'
@@ -18,7 +18,7 @@ Vue.config.productionTip = false
 
 /*---安装第三方插件---*/
 Vue.use(vueResource);
-Vue.use(Mint);
+/*Vue.use(Mint);*/
 Vue.use(vueCookie);
 
 /*---安装自定义插件---*/

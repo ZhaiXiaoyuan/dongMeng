@@ -2,7 +2,7 @@
 <template>
     <div class="user-data">
       <div class="avatar">
-        <img :src="userInfo&&userInfo.touxiang" alt="">
+        <img :src="userInfo&&userInfo.touxiang?userInfo.touxiang:defaultAvatar" alt="">
       </div>
       <div class="input-row">
         <input type="text" class="cm-input" v-model="name" maxlength="50" placeholder="请输入姓名">
@@ -38,6 +38,7 @@
               name:null,
               phone:null,
               code:null,
+              defaultAvatar:require('../../images/common/default-avatar.png'),
             }
         },
         computed: {},

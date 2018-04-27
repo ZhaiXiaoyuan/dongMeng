@@ -2,17 +2,17 @@
 <template>
     <div class="nav-bar" v-if="pageName!='login'">
         <ul>
-          <router-link   to="/home" tag="li" :class="{'active':pageName=='home'}">
+          <router-link   to="/home" class="ripple" tag="li" :class="{'active':pageName=='home'}">
             <i class="icon normal-icon home-normal-icon"></i>
             <i class="icon active-icon home-active-icon"></i>
             <span>首页</span>
           </router-link>
-          <router-link  to="/rank" tag="li"  :class="{'active':pageName=='rank'}">
+          <router-link  to="/rank" class="ripple" tag="li"  :class="{'active':pageName=='rank'}">
             <i class="icon normal-icon cup-ml-normal-icon"></i>
             <i class="icon active-icon cup-ml-active-icon"></i>
             <span>金榜题名</span>
           </router-link>
-          <router-link  to="/userCenter"  tag="li"  :class="{'active':pageName=='userCenter'}">
+          <router-link  to="/userCenter"  class="ripple" tag="li"  :class="{'active':pageName=='userCenter'}">
             <i class="icon normal-icon user-normal-icon"></i>
             <i class="icon active-icon user-active-icon"></i>
             <span>我</span>
@@ -45,6 +45,7 @@
         flex: 1;
         font-size: 0.24rem;
         color: #777;
+        height: 100%;
         .icon{
           margin-bottom: 0.02rem;
         }

@@ -50,6 +50,7 @@
             return {
               expandMenu:true,
               pageName:'',
+              defaultAvatar:require('../../images/common/default-avatar.png'),
             }
         },
         computed: {},

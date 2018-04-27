@@ -5,16 +5,18 @@
         <div class="avatar">
           <img :src="userInfo&&userInfo.touxiang?userInfo.touxiang:defaultAvatar">
         </div>
-        <p class="name">{{userInfo&&userInfo.username?userInfo.username:'微信姓名'}}</p>
-        <p class="phone" v-if="userInfo&&userInfo.mobilephone">电话 {{userInfo.mobilephone}}</p>
-        <router-link :to="{ name: 'completeData', params: {}}" class="handle-btn" v-if="userInfo&&!userInfo.mobilephone">
-          <i class="icon edit-icon"></i>
-          完善资料
-        </router-link>
-        <router-link :to="{ name: 'editData', params: {}}" class="handle-btn"  v-if="userInfo&&userInfo.mobilephone">
-          <i class="icon edit-icon"></i>
-          修改资料
-        </router-link>
+        <div class="text-row">
+          <p class="name">{{userInfo&&userInfo.username?userInfo.username:'微信姓名'}}</p>
+          <p class="phone" v-if="userInfo&&userInfo.mobilephone">电话 {{userInfo.mobilephone}}</p>
+          <div class="handle-btn" v-if="userInfo&&!userInfo.mobilephone" @click="checkUserInfo(()=>{$router.push({ name: 'completeData', params: {}})})">
+            <i class="icon edit-icon"></i>
+            完善资料
+          </div>
+          <router-link :to="{ name: 'editData', params: {}}" class="handle-btn"  v-if="userInfo&&userInfo.mobilephone">
+            <i class="icon edit-icon"></i>
+            修改资料
+          </router-link>
+        </div>
       </div>
       <div class="menu-panel">
         <ul class="menu-list">

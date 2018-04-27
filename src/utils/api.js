@@ -41,7 +41,7 @@ export default {
 
     /**/
     let basicUrl='http://www.grfame.com/dmjywxs';
- /*   let basicUrl='/api';//临时测试*/
+/*    let basicUrl='/api';//临时测试*/
     Vue.api={
       //首页数据
       getHomeData:function (params) {

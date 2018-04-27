@@ -38,15 +38,15 @@
         </router-link >
         <div class="panel-bd">
           <div class="entrance-list">
-            <router-link :to="{ name: 'completeData', params: {}}" class="item item-sm" v-if="!isFull">
+            <div  class="item item-sm" v-if="!isFull" @click="checkUserInfo(()=>{$router.push({ name: 'completeData', params: {}})})">
               <span class="icon-wrap"><i class="icon book-icon"></i></span>
               <p class="text">完善资料</p>
-            </router-link>
+            </div>
             <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull" @click="signIn()">
               <span class="icon-wrap"><i class="icon sign-icon"></i></span>
               <p class="text">{{canSign?'每天签到':'已签到'}}</p>
             </div>
-            <div class="item item-sm" @click="inviteModal()">
+            <div class="cm-btn item item-sm">
               <span class="icon-wrap"> <i class="icon add-member-icon"></i></span>
               <p class="text">邀请好友</p>
             </div>
@@ -71,16 +71,16 @@
         </router-link>
         <div class="panel-bd">
           <div class="entry-list">
-            <div class="entry ticket-entry">
+            <router-link :to="{ name: 'giftList', params: {}}"  class="entry ticket-entry">
               <p class="name">购房券</p>
               <img :src="housePurchaseTicketImg" alt="">
               <i class="icon label-icon"></i>
-            </div>
-            <div class="entry ticket-entry">
+            </router-link>
+            <router-link :to="{ name: 'giftList', params: {}}"  class="entry ticket-entry">
               <p class="name">物业券</p>
               <img :src="propertyTicketImg" alt="">
               <i class="icon label-icon"></i>
-            </div>
+            </router-link>
           </div>
           <div class="gift-entry-list">
             <div v-for="(item,index) in giftList" class="entry gift-entry">
