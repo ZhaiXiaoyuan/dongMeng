@@ -125,7 +125,12 @@ Vue.filter('phoneTextFormat',function(text){
 
 /*格式化时间*/
 Vue.filter('formatDate',function(date,fmt){
+  if(!date){
+    return;
+  }
   if(typeof date !=Date){
+    date=date.replace(/-/g,"/");
+    console.log('date:',date);
     date=new Date(date);
   }
   var o = {

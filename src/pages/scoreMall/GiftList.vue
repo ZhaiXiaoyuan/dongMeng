@@ -6,13 +6,16 @@
           <i class="icon diamond-icon"></i>
           <span class="score">可用积分：<em>{{score}}</em></span>
         </div>
-        <router-link :to="{ name: 'exchangeRecord', params: { }}"  class=" cm-btn btn">兑换记录</router-link>
+        <div  class=" cm-btn btn" @click="checkUserInfo(()=>{$router.push({ name: 'exchangeRecord', params: { }})})">兑换记录</div>
       </div>
       <div class="list-panel">
         <ul class="entry-list">
-          <router-link :to="{ name: 'giftDetail', params: { id: item.id }}" v-for="(item,index) in giftList" tag="li" :key="item.id">
+          <router-link :to="{ name: 'giftDetail', params: { id: item.id }}" v-for="(item,index) in giftList" tag="li" :key="item.id" :class="{'cm-disabled':item.status!=20}">
            <div class="entry-content">
-             <img :src="item.imageUrl" alt="">
+             <div class="cover">
+               <img :src="item.imageUrl" alt="">
+               <div class="status" v-if="item.status!=20">{{item.statusLabel}}</div>
+             </div>
              <div class="text-wrap">
                <p class="name">{{item.name}}</p>
                <p class="score">兑换积分<em>{{item.score}}</em></p>

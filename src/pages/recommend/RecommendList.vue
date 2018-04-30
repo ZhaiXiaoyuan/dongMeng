@@ -37,7 +37,7 @@
                 </div>
                 <span class="value">{{entry.buyerMobilephone}}</span>
               </div>
-              <div class="entry-ft">推荐时间：{{entry.createtime|formatDate('yyyy年MM月dd日')}}</div>
+              <div class="entry-ft">推荐时间：{{entry.createtime.split('.')[0]|formatDate('yyyy年MM月dd日')}}</div>
             </li>
           </ul>
           <scroll-load :page="pager" @scrolling="getList()"></scroll-load>

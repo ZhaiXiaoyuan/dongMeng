@@ -8,7 +8,7 @@
         <div class="text-row">
           <p class="name">{{userInfo&&userInfo.username?userInfo.username:'微信姓名'}}</p>
           <p class="phone" v-if="userInfo&&userInfo.mobilephone">电话 {{userInfo.mobilephone}}</p>
-          <div class="handle-btn" v-if="userInfo&&!userInfo.mobilephone" @click="checkUserInfo(()=>{$router.push({ name: 'completeData', params: {}})})">
+          <div class="handle-btn" v-if="userInfo&&!userInfo.mobilephone" @click="checkUserInfo(()=>{$router.push({ name: 'completeData', params: {}})},true)">
             <i class="icon edit-icon"></i>
             完善资料
           </div>
@@ -20,42 +20,42 @@
       </div>
       <div class="menu-panel">
         <ul class="menu-list">
-          <router-link :to="{ name: 'myScore', params: {}}" tag="li"  class="item arrows-right">
+          <li  class="item arrows-right" @click="checkUserInfo(()=>{$router.push({ name: 'myScore', params: {}})})">
              <span class="icon-wrap">
                <i class="icon score-grey-icon"></i>
              </span>
              <span class="field">我的积分</span>
-          </router-link>
-          <li class="item arrows-right" :class="{'cm-disabled':!canSign}" @click="signIn()">
+          </li>
+          <li class="item arrows-right" :class="{'cm-disabled':!canSign}" @click="checkUserInfo(()=>{signIn()})">
              <span class="icon-wrap">
                <i class="icon calendar-grey-icon"></i>
              </span>
             <span class="field">{{canSign?'每天签到':'已签到'}}</span>
           </li>
-          <router-link :to="{ name: 'recommend', params: {}}" tag="li"  class="item arrows-right">
+          <li  class="item arrows-right" @click="checkUserInfo(()=>{$router.push({ name: 'recommend', params: {}})})">
              <span class="icon-wrap">
                <i class="icon praise-grey-icon"></i>
              </span>
             <span class="field">推荐买房</span>
-          </router-link>
-          <router-link :to="{ name: 'exchangeRecord', params: {}}" tag="li"  class="item arrows-right">
+          </li>
+          <li  class="item arrows-right" @click="checkUserInfo(()=>{$router.push({ name: 'exchangeRecord', params: {}})})">
              <span class="icon-wrap">
                <i class="icon present-grey-icon"></i>
              </span>
             <span class="field">我的兑换</span>
-          </router-link>
+          </li>
           <router-link :to="{ name: 'giftList', params: {}}" tag="li"  class="item arrows-right">
              <span class="icon-wrap">
                <i class="icon shopping-grey-icon"></i>
              </span>
             <span class="field">兑换商城</span>
           </router-link>
-          <router-link :to="{ name: 'rank', params: {}}" tag="li"  class="item arrows-right">
+          <li  class="item arrows-right" @click="checkUserInfo(()=>{$router.push({ name: 'rank', params: {}})})">
              <span class="icon-wrap">
                <i class="icon cup-grey-icon"></i>
              </span>
             <span class="field">金榜题名</span>
-          </router-link >
+          </li >
         </ul>
       </div>
       <nav-bar></nav-bar>
@@ -65,7 +65,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less" scoped>
-
 </style>
 
 <script>
@@ -82,6 +81,7 @@
               phone:null,
               code:null,
               defaultAvatar:require('../../images/common/default-avatar.png'),
+              isFull:false,
               canSign:false,//true:可签到，false:已签到
             }
         },
@@ -117,24 +117,24 @@
 
         },
         created: function () {
+
         },
         mounted: function () {
           /**/
-          this.getHomeData();
-          /**/
           this.getUserInfo();
         },
-        route: {
-           /* data: function(transition) {
-                return Vue.utils.getCustomer().then(function (data) {
-                    {
-                        return {}
-                    }
-                });
-
-
-            },
-            waitForData: true,*/
-        }
+      beforeRouteEnter (to, from, next) {
+        Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{
+          if(resp.status=='success'){
+            var data=JSON.parse(resp.message);
+            next(vm =>{
+              vm.isFull=data.isFull?true:false;
+              vm.canSign=data.canSign?true:false;
+            });
+          }else{
+            next(vm =>{});
+          }
+        })
+      },
     };
 </script>

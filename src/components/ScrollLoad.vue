@@ -1,6 +1,6 @@
 <!--滚动加载组件-->
 <template>
-  <div>
+  <div style="padding: 0.2rem 0rem;">
     <div class="cm-loading" v-show="page&&page.isLoading&&!page.isFinished">
       <!--<mt-spinner type="snake" color="#00CDB2" :size="25"></mt-spinner>-->
       <i class="icon loading-icon"></i>
@@ -15,20 +15,6 @@
 </template>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less" scoped>
-/*  .cm-loading{
-    margin: 0.2rem 0rem;
-    text-align: center;
-    >span{
-      display: inline-block;
-      .mint-spinner-snake{
-        border: 2px solid transparent;
-      }
-    }
-    .no-more{
-      font-size: 0.28rem;
-      color: #999;
-    }
-  }*/
 .cm-loading{
   text-align: center;
 }

@@ -53,7 +53,7 @@
       genCode:function () {
         let that=this;
         if(!regex.phone.test(this.phone)){
-          this.toast({text:regex.phoneAlert});
+          this.operationFeedback({type:'warn',text:regex.phoneAlert})
           return;
         }
         if(this.isRequesting||this.time<60){

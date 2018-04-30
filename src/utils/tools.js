@@ -188,6 +188,9 @@ export default {
                   options.callback&&options.callback(true);
                 }
               });
+              wx.error(function(res){
+                alert(JSON.parse(res));
+              });
             }else{
               options.callback&&options.callback(false);
             }
@@ -226,13 +229,29 @@ export default {
           });
         },
         /**/
-        checkUserInfo:function (callback) {
+        checkUserInfo:function (callback,isDirectly) {
           let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
-          let toCompleteData=()=>{
+          console.log('userInfo:',userInfo);
+          let link=()=>{
             if(userInfo.touxiang){
               router.push({name:'completeData'});
             }else{
               this.toAuth(2,window.location.href.split('#')[0]+'#/completeData');
+            }
+          }
+          let toCompleteData=()=>{
+            if(isDirectly){
+              link();
+            }else{
+              Vue.alert({
+                html:'您未完善信息，请完善信息！',
+                yes:'立即跳转',
+                autoTime:3,
+                autoText:'跳转至完善信息界面',
+                ok:()=>{
+                  link();
+                }
+              });
             }
           }
           if(userInfo){

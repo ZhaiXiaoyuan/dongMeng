@@ -4,6 +4,7 @@
       <div class="survey-panel">
         <p>已兑换福利（个）</p>
         <p>{{exchangedCount}}</p>
+        <div  class="cm-btn btn link-btn" @click="checkUserInfo(()=>{$router.push({ name: 'giftList', params: { }})})">礼品商城</div>
       </div>
       <div class="list-panel">
         <ul class="entry-list">

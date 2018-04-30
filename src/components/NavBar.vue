@@ -7,11 +7,11 @@
             <i class="icon active-icon home-active-icon"></i>
             <span>首页</span>
           </router-link>
-          <router-link  to="/rank" class="ripple" tag="li"  :class="{'active':pageName=='rank'}">
+          <li class="ripple"  :class="{'active':pageName=='rank'}" @click="checkUserInfo(()=>{$router.push({ name: 'rank', params: {}})})">
             <i class="icon normal-icon cup-ml-normal-icon"></i>
             <i class="icon active-icon cup-ml-active-icon"></i>
             <span>金榜题名</span>
-          </router-link>
+          </li>
           <router-link  to="/userCenter"  class="ripple" tag="li"  :class="{'active':pageName=='userCenter'}">
             <i class="icon normal-icon user-normal-icon"></i>
             <i class="icon active-icon user-active-icon"></i>

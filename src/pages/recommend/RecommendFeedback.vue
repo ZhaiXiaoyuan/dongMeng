@@ -8,7 +8,7 @@
         <p>以确认信息的有效性，感谢您的付出</p>
       </div>
       <router-link :to="{ name: 'recommend', params: {}}" tag="div" class="handle-btn ok-btn" >继续推荐客户</router-link >
-      <div class="handle-btn">查看已推荐的客户</div>
+      <router-link :to="{ name: 'recommendList', params: {}}" tag="div" class="handle-btn">查看已推荐的客户</router-link>
     </div>
 </template>
 

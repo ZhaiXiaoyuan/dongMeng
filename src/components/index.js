@@ -145,6 +145,7 @@ export default {
           html: '',   //提示内容
           yes: '确 定',
           ok:null,//回调
+          autoTime:false,
         },...options};
         //
         let parentEle=document.getElementById('app');

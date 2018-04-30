@@ -347,6 +347,7 @@ const router= new Router({
 //注册全局导航守卫
 router.afterEach((to, from) => {
   if(to.query.openid){
+    console.log('2333333333333');
     localStorage.setItem('number',to.query.openid);
   }
   //修改页面title

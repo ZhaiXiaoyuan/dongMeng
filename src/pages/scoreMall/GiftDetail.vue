@@ -48,8 +48,8 @@
         </div>
       </div>
       <div class="btn-list">
-        <router-link :to="{ name: 'exchangeRecord', params: {}}" class="cm-btn btn">兑换记录</router-link>
-        <div class="cm-btn btn" @click="checkUserInfo(()=>{exchangeGift()})">立即兑换</div>
+        <div class="cm-btn btn" @click="checkUserInfo(()=>{$router.push({ name: 'exchangeRecord', params: { }})})">兑换记录</div>
+        <div class="cm-btn btn" @click="checkUserInfo(()=>{exchangeGift()})" :class="{'cm-disabled':gift.status!=20}">{{gift.status==20?'立即兑换':gift.statusLabel}}</div>
       </div>
     </div>
 </template>
@@ -89,7 +89,7 @@
           exchangeGift:function () {
             this.confirm({
               title:'',
-              html:'是否确认兑换此礼品',
+              html:'将消耗'+this.gift.score+'积分，是否兑换',
               ok:()=>{
                 let params={
                   ...Vue.tools.sessionInfo(),
@@ -125,7 +125,6 @@
         mounted: function () {
           /*获取礼品详情*/
           this.getGiftDetail();
-
         },
         route: {
            /* data: function(transition) {

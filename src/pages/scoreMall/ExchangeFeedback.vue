@@ -5,7 +5,7 @@
       <p class="title">兑换成功</p>
       <div class="desc">
         <p>兑换码 {{entry.excode}}</p>
-        <p style="margin-top: 0.2rem;">领取时间：缺字段至{{entry.rcvEnddate}}</p>
+        <p style="margin-top: 0.2rem;">领取时间：{{entry.rcvStartdate}}至{{entry.rcvEnddate}}</p>
         <p>每周六、周日上午9点至下午6点</p>
       </div>
       <router-link :to="{ name: 'giftList', params: {}}" tag="div" class="handle-btn ok-btn" >继续兑换</router-link >

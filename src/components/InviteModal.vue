@@ -179,23 +179,15 @@
       this.getInviteAwardRule();
       /**/
       /*微信分享配置*/
-      Vue.tools.wxConfig({
-          jsApiList:['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-          callback:(data)=>{
-          if(data){
-            let temRequest=
-            Vue.tools.shareConfig({
-                title: '鼎能·东盟城',
-                desc:'做任务赢取积分',
-                link: Vue.tools.editUrl(window.location.href,{sopenid:Vue.tools.sessionInfo().number,openid:null}).replace('&openid=',''),
-                imgUrl: window.location.origin+this.logo,
-                callback:()=>{
-                Vue.operationFeedback({type:'complete',text:'分享成功'});
-          }
-          });
-          }
+      Vue.tools.shareConfig({
+        title: '鼎能·东盟城',
+        desc:'做任务赢取积分',
+        link: Vue.tools.editUrl(window.location.href,{sopenid:Vue.tools.sessionInfo().number,openid:null}).replace('&openid=',''),
+        imgUrl: window.location.origin+this.logo,
+        callback:()=>{
+          Vue.operationFeedback({type:'complete',text:'分享成功'});
         }
-    });
+      });
     }
   };
 </script>

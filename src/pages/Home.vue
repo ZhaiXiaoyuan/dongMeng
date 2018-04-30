@@ -38,22 +38,22 @@
         </router-link >
         <div class="panel-bd">
           <div class="entrance-list">
-            <div  class="item item-sm" v-if="!isFull" @click="checkUserInfo(()=>{$router.push({ name: 'completeData', params: {}})})">
+            <div  class="item item-sm" v-if="!isFull" @click="checkUserInfo(()=>{$router.push({ name: 'completeData', params: {}})},true)">
               <span class="icon-wrap"><i class="icon book-icon"></i></span>
               <p class="text">完善资料</p>
             </div>
-            <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull" @click="signIn()">
+            <div class="item item-sm" :class="{'cm-disabled':!canSign}" v-if="isFull"  @click="checkUserInfo(()=>{signIn()})">
               <span class="icon-wrap"><i class="icon sign-icon"></i></span>
               <p class="text">{{canSign?'每天签到':'已签到'}}</p>
             </div>
-            <div class="cm-btn item item-sm">
+            <div class="cm-btn item item-sm"  @click="checkUserInfo(()=>{inviteModal()})">
               <span class="icon-wrap"> <i class="icon add-member-icon"></i></span>
               <p class="text">邀请好友</p>
             </div>
-            <router-link :to="{ name: 'recommend', params: {}}" class="item item-sm">
+            <div class="item item-sm" @click="checkUserInfo(()=>{$router.push({ name: 'recommend', params: {}})})">
               <span class="icon-wrap"><i class="icon praise-icon"></i></span>
               <p class="text">推荐买房</p>
-            </router-link>
+            </div>
             <router-link :to="{ name: 'articleList', params: {}}"  class="item item-sm">
               <span class="icon-wrap"> <i class="icon share-icon"></i></span>
               <p class="text">分享美文</p>
@@ -87,7 +87,7 @@
               <router-link :to="{ name: 'giftDetail', params: {id:item.id}}">
                 <p class="name">{{item.name}}</p>
                 <p class="cost">{{item.score}}积分</p>
-                <img :src="item.image" :alt="item.name">
+                <img :src="item.image">
               </router-link>
             </div>
           </div>
@@ -174,6 +174,7 @@
           this.getHomeData();
           /**/
           this.getGiftList();
+          /**/
         },
         route: {
            /* data: function(transition) {
