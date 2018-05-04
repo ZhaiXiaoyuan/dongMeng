@@ -48,6 +48,9 @@
             Vue.api.getUserInfo({...Vue.tools.sessionInfo()}).then((resp)=>{
               if(resp.status=='success'){
                 this.userInfo=JSON.parse(resp.message);
+                if(this.userInfo.username){
+                  this.name=this.userInfo.username;
+                }
               }else{
 
               }
@@ -62,8 +65,9 @@
               this.operationFeedback({type:'warn',text:regex.phoneAlert});
               return;
             }
+            let sopenid=localStorage.getItem('sopenid');
             let fb=this.operationFeedback({text:'保存中...'});
-            Vue.api.bindPhone({...Vue.tools.sessionInfo(),username:this.name,mobilephone:this.phone,mcode:this.code,}).then((resp)=>{
+            Vue.api.bindPhone({...Vue.tools.sessionInfo(),username:this.name,mobilephone:this.phone,mcode:this.code,sopenid:sopenid?sopenid:null}).then((resp)=>{
               if(resp.status=='success'){
                 fb.setOptions({type:'complete',text:'保存成功'});
                 this.$router.push({name:'userCenter',params:{}});
@@ -78,6 +82,7 @@
         mounted: function () {
           /**/
           this.getUserInfo();
+          /**/
         },
         route: {
            /* data: function(transition) {

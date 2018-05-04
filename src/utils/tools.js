@@ -197,7 +197,7 @@ export default {
           });
         },
         shareConfig:function (options) {
-          console.log('options:',options);
+        /*  console.log('options:',options);*/
           var shareInfo={
             title: options.title,
             desc:options.desc,
