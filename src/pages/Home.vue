@@ -132,16 +132,6 @@
         computed: {},
         watch: {},
         methods: {
-          getHomeData:function () {
-            Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{
-              if(resp.status=='success'){
-                var data=JSON.parse(resp.message);
-                this.bannerList=data.adves;
-                this.isFull=data.isFull?true:false;
-                this.canSign=data.canSign?true:false
-              }
-            })
-          },
           getGiftList:function () {
             let pager={
               pageSize:4,
@@ -171,23 +161,27 @@
         },
         mounted: function () {
           /**/
-          this.getHomeData();
-          /**/
           this.getGiftList();
           /**/
+          //临时测试
+         /* localStorage.setItem('number','');
+          localStorage.setItem('sopenid','');
+          sessionStorage.setItem('userInfo','');*/
         },
-        route: {
-           /* data: function(transition) {
-                return Vue.utils.getCustomer().then(function (data) {
-                    {
-                        return {}
-                    }
-                });
-
-
-            },
-            waitForData: true,*/
-        }
+      beforeRouteEnter (to, from, next) {
+        Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{
+          if(resp.status=='success'){
+            var data=JSON.parse(resp.message);
+            next(vm =>{
+              vm.bannerList=data.adves;
+              vm.isFull=data.isFull?true:false;
+              vm.canSign=data.canSign?true:false;
+            });
+          }else{
+            next(vm =>{});
+          }
+        })
+      },
 
     };
 </script>

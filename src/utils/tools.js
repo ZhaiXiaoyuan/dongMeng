@@ -135,8 +135,11 @@ export default {
         sessionInfo:function () {
           let timestamp=this.genTimestamp();
           let number=localStorage.getItem('number');
-          if(!number||number==''){//如果openid为空，则重新进行默认授权
+          if((!number||number=='')&&localStorage.getItem('authorizing')!='true'){//如果openid为空，则重新进行默认授权
+            localStorage.setItem('authorizing','true');
             this.toAuth(1,window.location.href);
+          }else{
+            localStorage.setItem('authorizing','false');
           }
           return{
             timeStamp:timestamp,
@@ -197,7 +200,6 @@ export default {
           });
         },
         shareConfig:function (options) {
-        /*  console.log('options:',options);*/
           var shareInfo={
             title: options.title,
             desc:options.desc,
@@ -231,7 +233,6 @@ export default {
         /**/
         checkUserInfo:function (callback,isDirectly) {
           let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
-          console.log('userInfo:',userInfo);
           let link=()=>{
             if(userInfo.touxiang){
               router.push({name:'completeData'});

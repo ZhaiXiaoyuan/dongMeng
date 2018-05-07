@@ -42,7 +42,7 @@
             Vue.api.getArticleDetail(params).then((resp)=>{
               if(resp.status=='success'){
                 this.article=JSON.parse(resp.message);
-
+                let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
                 /*微信分享配置*/
                 Vue.tools.shareConfig({
                   title: that.article.title,
@@ -50,11 +50,21 @@
                   link: window.location.href,
                   imgUrl: that.article.titlepicUrl,
                   callback:()=>{
-                    Vue.api.getShareArticelAward({...Vue.tools.sessionInfo(),aid:that.article.id}).then((resp)=>{
-                      if(resp.status=='success'){
-                        Vue.operationFeedback({type:'complete',text:'分享成功，购房币+'+resp.message});
-                      }
-                    });
+                    if(userInfo&&userInfo.mobilephone){
+                      Vue.api.getShareArticelAward({...Vue.tools.sessionInfo(),aid:that.article.id}).then((resp)=>{
+                        if(resp.status=='success'){
+                          Vue.operationFeedback({type:'complete',text:'分享成功，购房币+'+resp.message});
+                        }
+                      });
+                    }else{
+                      Vue.alert({
+                        html:'由于您未完善资料，此次分享不会获得积分奖励！',
+                        yes:'立即完善资料',
+                        ok:function () {
+                          Vue.checkUserInfo(()=>{that.$router.push({ name: 'completeData', params: {}})},true)
+                        }
+                      });
+                    }
                   }
                 });
               }
@@ -67,6 +77,7 @@
         mounted: function () {
          /**/
           this.getArticleDetail();
+          /**/
 
         },
 
