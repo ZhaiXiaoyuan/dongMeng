@@ -250,6 +250,14 @@ export default {
           params: params
         });
       },
+      //邀请好友-邀请好友分享信息
+      getInviteInfo:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/mk/recus/isinfo',
+          params: params
+        });
+      },
     }
   },
 

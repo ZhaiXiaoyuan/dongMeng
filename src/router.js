@@ -345,13 +345,16 @@ const router= new Router({
 })
 
 //注册全局导航守卫
-router.afterEach((to, from) => {
+router.beforeEach((to, from,next) => {
   if(to.query.openid){
     localStorage.setItem('number',to.query.openid);
   }
   if(to.query.sopenid){
     localStorage.setItem('sopenid',to.query.sopenid);
   }
+  next();
+})
+router.afterEach((to, from) => {
   //修改页面title
   document.title = to.meta.title;
 })

@@ -15,7 +15,7 @@
             </p>
             <p>
               <i class="icon coin-icon"></i>
-              <em>{{inviteAwardRule.directScore }}购房币/人 </em>
+              <em>{{inviteAwardRule.directScore }}积分/人 </em>
               <span>每人每日最多{{inviteAwardRule.directLimit }}次</span>
             </p>
           </div>
@@ -29,8 +29,8 @@
             </p>
             <p>
               <i class="icon coin-icon"></i>
-              <em>{{inviteAwardRule.indirectScore}}购房币/人</em>
-              <span>每人每日最多{{inviteAwardRule.indirectLimit}}次</span>
+              <em>{{inviteAwardRule.indirectScore}}积分/人</em>
+              <span>每人每日最多{{inviteAwardRule.indirectLimit}}积分</span>
             </p>
           </div>
         </li>
@@ -58,6 +58,14 @@
       text-align: right;
       background: #fff;
       padding: 0.2rem 0.16rem !important;
+      height: 1rem;
+    /*  display: flex;
+      align-items: center;*/
+      .close-btn{
+        position: relative;
+        top:0.1rem;
+        margin-left: auto;
+      }
     }
     .modal-body{
       background: #fff;
@@ -169,7 +177,24 @@
             this.inviteAwardRule=JSON.parse(resp.message);
           }
         })
-      }
+      },
+      getInviteInfo:function () {
+        Vue.api.getInviteInfo({...Vue.tools.sessionInfo()}).then((resp)=>{
+          if(resp.status=='success'){
+           let data=JSON.parse(resp.message);
+            /*微信分享配置*/
+            Vue.tools.shareConfig({
+              title: '鼎能·东盟城',
+              desc:data.word,
+              link: Vue.tools.editUrl(window.location.href,{sopenid:Vue.tools.sessionInfo().number,openid:null}).replace('&openid=',''),
+              imgUrl: data.pic,
+              callback:()=>{
+                Vue.operationFeedback({type:'complete',text:'分享成功'});
+              }
+            });
+          }
+        })
+      },
     },
     created: function () {
 
@@ -178,16 +203,7 @@
       /**/
       this.getInviteAwardRule();
       /**/
-      /*微信分享配置*/
-      Vue.tools.shareConfig({
-        title: '鼎能·东盟城',
-        desc:'做任务赢取积分',
-        link: Vue.tools.editUrl(window.location.href,{sopenid:Vue.tools.sessionInfo().number,openid:null}).replace('&openid=',''),
-        imgUrl: window.location.origin+this.logo,
-        callback:()=>{
-          Vue.operationFeedback({type:'complete',text:'分享成功'});
-        }
-      });
+      this.getInviteInfo();
     }
   };
 </script>

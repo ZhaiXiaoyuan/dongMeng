@@ -49,7 +49,10 @@
       </div>
       <div class="btn-list">
         <div class="cm-btn btn" @click="checkUserInfo(()=>{$router.push({ name: 'exchangeRecord', params: { }})})">兑换记录</div>
-        <div class="cm-btn btn" @click="checkUserInfo(()=>{exchangeGift()})" :class="{'cm-disabled':gift.status!=20}">{{gift.status==20?'立即兑换':gift.statusLabel}}</div>
+        <div class="cm-btn btn" @click="checkUserInfo(()=>{exchangeGift()})" :class="{'cm-disabled':gift.status!=20||gift.amount==gift.examount}">
+          <span v-if="gift.amount>gift.examount">{{gift.status==20?'立即兑换':gift.statusLabel}}</span>
+          <span v-if="gift.amount==gift.examount">已兑换完</span>
+        </div>
       </div>
     </div>
 </template>

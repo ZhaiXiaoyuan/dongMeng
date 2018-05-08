@@ -1,7 +1,7 @@
 <!--奖励规则-->
 <template>
    <div class="award-rule">
-     <div v-html="ruleContent"></div>
+     <textarea id="" cols="30" rows="10">{{ruleContent}}</textarea>
    </div>
 </template>
 
@@ -14,6 +14,15 @@
     height: 100%;
     background: #fff;
     padding: 0.5rem 0.6rem;
+  }
+  textarea{
+    width: 100%;
+    height: 100%;
+    line-height: 0.48rem;
+    font-size: 0.3rem;
+    resize: none;
+    border: none;
+    pointer-events: none;
   }
 </style>
 

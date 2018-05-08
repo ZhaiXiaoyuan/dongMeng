@@ -135,12 +135,16 @@ export default {
         sessionInfo:function () {
           let timestamp=this.genTimestamp();
           let number=localStorage.getItem('number');
-          if((!number||number=='')&&localStorage.getItem('authorizing')!='true'){//如果openid为空，则重新进行默认授权
-            localStorage.setItem('authorizing','true');
-            this.toAuth(1,window.location.href);
+          if(!number||number==''){//如果openid为空，则重新进行默认授权
+            if(localStorage.getItem('authorizing')!='true'){
+              localStorage.setItem('authorizing','true');
+              this.toAuth(1,window.location.href);
+            }
           }else{
             localStorage.setItem('authorizing','false');
           }
+
+
           return{
             timeStamp:timestamp,
             number:number,

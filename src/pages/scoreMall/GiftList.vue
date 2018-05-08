@@ -10,11 +10,12 @@
       </div>
       <div class="list-panel">
         <ul class="entry-list">
-          <router-link :to="{ name: 'giftDetail', params: { id: item.id }}" v-for="(item,index) in giftList" tag="li" :key="item.id" :class="{'cm-disabled':item.status!=20}">
+          <router-link :to="{ name: 'giftDetail', params: { id: item.id }}" v-for="(item,index) in giftList" tag="li" :key="item.id" :class="{'cm-disabled':item.status!=20||item.amount==item.examount}">
            <div class="entry-content">
              <div class="cover">
                <img :src="item.imageUrl" alt="">
-               <div class="status" v-if="item.status!=20">{{item.statusLabel}}</div>
+               <div class="status" v-if="item.status!=20&&item.amount>item.examount">{{item.statusLabel}}</div>
+               <div class="status" v-if="item.amount==item.examount">已兑换完</div>
              </div>
              <div class="text-wrap">
                <p class="name">{{item.name}}</p>
@@ -79,6 +80,7 @@
                 this.pager.isLoading=false;
                 this.pager.isFinished=false;
                 this.giftList=this.giftList.concat(data.result);
+                console.log('this.giftList:',this.giftList);
               }
             })
           },
