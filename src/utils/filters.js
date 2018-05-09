@@ -128,11 +128,12 @@ Vue.filter('formatDate',function(date,fmt){
   if(!date){
     return;
   }
-  if(typeof date !=Date){
+  //临时测试
+/*  if(typeof date !=Date){
     date=date.replace(/-/g,"/");
     console.log('date:',date);
     date=new Date(date);
-  }
+  }*/
   var o = {
     "M+": date.getMonth() + 1, //月份
     "d+": date.getDate(), //日

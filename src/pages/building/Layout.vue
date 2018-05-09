@@ -5,15 +5,27 @@
         <swiper :options="swiperOption">
           <swiper-slide v-for="(item,index) in itemList" :key="item.id">
             <div class="item-wrap">
-              <div class="img-wrap" :style="{background: 'url('+item.imageUrl+') no-repeat center',backgroundSize: 'cover'}"></div>
+              <div class="img-wrap" :style="{background: 'url('+item.imgUrl+') no-repeat center',backgroundSize: 'cover'}"></div>
               <div class="info-panel">
                 <div class="panel-hd">
                   <p class="title">{{item.name}}</p>
                   <ul class="label-list">
-                    <li>{{itme.style}}</li>
-                    <li>{{itme.areas}}</li>
-                    <li>{{item.aveprice}}</li>
-                    <li>{{item.allprice}}</li>
+                    <li>
+                      <p class="label">户型格局</p>
+                      {{item.style}}
+                    </li>
+                    <li>
+                      <p class="label">建筑面积</p>
+                      {{item.areas}}
+                    </li>
+                    <li>
+                      <p class="label">参考均价</p>
+                      {{item.aveprice}}
+                    </li>
+                    <li>
+                      <p class="label">参考总价</p>
+                      {{item.allprice}}
+                    </li>
                   </ul>
                 </div>
                 <div class="panel-bd" v-html="item.remark">

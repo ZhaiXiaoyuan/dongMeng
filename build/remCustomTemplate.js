@@ -62,6 +62,35 @@ templater.addTemplate('custom_format_retina', data => {
         `) + '\n' + perImage;
 });
 
+templater.addTemplate('custom_format_rem', data => {
+  var stamp = new Date().getTime();
+  var spritesheetImageUrl = data.sprites[0].image;
+  var spriteSheet=data.spritesheet;
+  var sharedSelector = data.sprites
+    .map(sprite => '.' + sprite.name)
+    .join(', ');
+  console.log('spriteData:',data);
+
+  var shared = dli(`
+        ${sharedSelector} {
+            background-image: url(${spritesheetImageUrl});
+            background-size: ${spriteSheet.width/100}rem ${spriteSheet.height/100}rem;
+        }
+    `);
+
+  var perImage = data.sprites
+    .map(sprite => dli(`
+            .${sprite.name} {
+                width: ${sprite.width/100}rem;
+                height: ${sprite.height/100}rem;
+                background-position: ${sprite.offset_x/100}rem ${sprite.offset_y/100}rem;
+            }
+        `))
+    .join('');
+
+  return shared + '\n' + perImage;
+});
+
 function dli(s) {//drop last indentation
   const lines = s.split('\n').filter(s => s.trim().length);
   const lastIndentLength = /^\s*/.exec(lines[lines.length - 1])[0].length;

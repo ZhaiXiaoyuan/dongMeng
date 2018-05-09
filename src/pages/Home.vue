@@ -85,7 +85,14 @@
           <div class="gift-entry-list">
             <div v-for="(item,index) in giftList" class="entry gift-entry">
               <router-link :to="{ name: 'giftDetail', params: {id:item.id}}">
-                <p class="name">{{item.name}}</p>
+                <p class="name" v-if="item.name.length<=4">
+                  {{item.name}}
+                </p>
+                <p class="name tips-view-win" v-if="item.name.length>4">
+                  <span class="tips-text-wrap">
+                    <span v-for="n in 100">{{item.name}}</span>
+                  </span>
+                </p>
                 <p class="cost">{{item.score}}积分</p>
                 <img :src="item.image">
               </router-link>
@@ -100,7 +107,37 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" rel="stylesheet/less">
+.tips-view-win{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 0.4rem;
+    overflow: hidden;
+  }
+  @keyframes gundong{
+    0%{ left:0; }
+    100%{ left:-2000px; }
+  }
+.tips-text-wrap{
+    display: flex;
+    height: 100%;
+    position:absolute;
+    align-items: center;
+    animation:gundong 70s linear infinite;
+    word-break: keep-all;
+    white-space: nowrap;
+  }
+/*.tips-text-wrap:hover{
+    animation-play-state:paused;
+  }*/
+.tips-text-wrap span{
+    padding-right: 0.2rem;
+    border:1px solid #fff;
+    transition:all 0.5s;
+  }
+.tips-text-wrap span:hover{
 
+  }
 </style>
 
 <script>

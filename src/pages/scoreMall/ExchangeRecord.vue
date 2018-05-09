@@ -11,8 +11,18 @@
           <li v-for="(item,index) in recordList" class="entry" :class="{'cm-disabled':item.rcvstatus==30||item.rcvstatus==40}">
             <div class="entry-bd">
               <p class="name">{{item.productName}}</p>
-              <p class="info">领取时间：{{item.rcvStartdate}}至{{item.rcvEnddate}}</p>
-              <p class="info">领取地址：{{item.rcvAddress}}</p>
+              <p class="info">
+                <span class="field">领取时间：</span>
+                {{item.rcvStartdate}}至{{item.rcvEnddate}}
+              </p>
+              <p class="info">
+                <span class="field"> 备注：</span>
+                {{item.rcvRemark}}
+              </p>
+              <p class="info">
+                <span class="field">领取地址：</span>
+                {{item.rcvAddress}}
+              </p>
             </div>
             <div class="entry-ft">
               <div class="border">

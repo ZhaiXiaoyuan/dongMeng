@@ -12,7 +12,15 @@
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" rel="stylesheet/less" scoped>
+<style lang="less" rel="stylesheet/less">
+  img{
+    margin: 0.08rem 0rem;
+    width: 100%;
+    height: auto;
+  }
+  p{
+    line-height: 0.4rem;
+  }
 </style>
 
 <script>
@@ -39,9 +47,11 @@
               ...Vue.tools.sessionInfo(),
               aid:this.$route.params.id
             }
+            params.number=null;
             Vue.api.getArticleDetail(params).then((resp)=>{
               if(resp.status=='success'){
                 this.article=JSON.parse(resp.message);
+                document.title = that.article.title;
                 let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
                 /*微信分享配置*/
                 Vue.tools.shareConfig({

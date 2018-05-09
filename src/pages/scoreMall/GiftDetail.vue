@@ -102,6 +102,7 @@
                 Vue.api.exchangeGift(params).then((resp)=>{
                   if(resp.status=='success'){
                     let data=JSON.parse(resp.message);
+                    data.remark=this.gift.rcvRemark;
                     localStorage.setItem(data.id,JSON.stringify(data));
                     this.$router.push({name:'exchangeFeedback',params:{id:data.id}});
                     fb.setOptions({type:'complete',text:'兑换成功',delayForDelete:0});

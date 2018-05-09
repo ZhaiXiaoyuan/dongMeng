@@ -30,7 +30,7 @@
             <p>
               <i class="icon coin-icon"></i>
               <em>{{inviteAwardRule.indirectScore}}积分/人</em>
-              <span>每人每日最多{{inviteAwardRule.indirectLimit}}积分</span>
+              <span>每人每日最多{{inviteAwardRule.indirectLimit}}次</span>
             </p>
           </div>
         </li>
