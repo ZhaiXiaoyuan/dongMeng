@@ -128,7 +128,7 @@ export default {
           }else{
             redirect+='?1='+type;
           }
-          let link=window.location.origin+'/dmjywxs/cus/auth/wxred?1='+type+'&redirect='+encodeURIComponent(redirect);
+          let link=window.location.origin+'/dmjywxs/cus/auth/wxred?1='+type+'&redirect='+encodeURIComponent(redirect.replace(window.location.origin,''));
     /*      console.log('test:',link);*/
           window.location.href=link;
         },

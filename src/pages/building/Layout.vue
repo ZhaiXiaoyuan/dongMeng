@@ -12,19 +12,19 @@
                   <ul class="label-list">
                     <li>
                       <p class="label">户型格局</p>
-                      {{item.style}}
+                      <div>{{item.style}}</div>
                     </li>
                     <li>
                       <p class="label">建筑面积</p>
-                      {{item.areas}}
+                      <div>{{item.areas}}</div>
                     </li>
                     <li>
                       <p class="label">参考均价</p>
-                      {{item.aveprice}}
+                      <div>{{item.aveprice}}</div>
                     </li>
                     <li>
                       <p class="label">参考总价</p>
-                      {{item.allprice}}
+                      <div>{{item.allprice}}</div>
                     </li>
                   </ul>
                 </div>

@@ -53,7 +53,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: './src/index.html',
       inject: true
     }),
-    new SpritesmithPlugin({
+    /*new SpritesmithPlugin({
       src: {
         cwd: 'src/images/slice',
         glob: '*.png'
@@ -63,14 +63,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         //css: path.resolve(__dirname, 'src/less/sprite.less')
         css: [
           ['src/less/sprite.less', {
-            format: 'custom_format',
+            format: 'custom_format_rem',
           }]
         ]
       },
       apiOptions: {
         cssImageRef: "../images/sprite.png"
       }
-    }),
+    }),*/
   ]
 })
 
