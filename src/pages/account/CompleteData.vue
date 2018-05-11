@@ -44,19 +44,22 @@
         computed: {},
         watch: {},
         methods: {
-          getUserInfo:function () {
+          getUserInfo:function (options) {
             Vue.api.getUserInfo({...Vue.tools.sessionInfo()}).then((resp)=>{
               if(resp.status=='success'){
                 this.userInfo=JSON.parse(resp.message);
                 if(this.userInfo.username){
                   this.name=this.userInfo.username;
                 }
+                sessionStorage.setItem('userInfo',JSON.stringify(this.userInfo));
+                options&&options.ok&&options.ok();
               }else{
 
               }
             })
           },
           save:function () {
+            let that=this;
             if(this.name.length<2){
               this.operationFeedback({type:'warn',text:'姓名不得少于2个字符'});
               return;
@@ -70,7 +73,11 @@
             Vue.api.bindPhone({...Vue.tools.sessionInfo(),username:this.name,mobilephone:this.phone,mcode:this.code,sopenid:sopenid?sopenid:null}).then((resp)=>{
               if(resp.status=='success'){
                 fb.setOptions({type:'complete',text:'保存成功'});
-                this.$router.push({name:'userCenter',params:{}});
+                this.getUserInfo({
+                  ok:function () {
+                    that.$router.push({name:'userCenter',params:{}});
+                  }
+                });
               }else{
                 fb.setOptions({type:'warn',text:resp.message});
               }

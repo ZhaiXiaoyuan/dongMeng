@@ -85,7 +85,7 @@
           <div class="gift-entry-list">
             <div v-for="(item,index) in giftList" class="entry gift-entry">
               <router-link :to="{ name: 'giftDetail', params: {id:item.id}}">
-                <p class="name" v-if="item.name.length<=4">
+                <p class="name tips-view-win" v-if="item.name.length<=4">
                   {{item.name}}
                 </p>
                 <p class="name tips-view-win" v-if="item.name.length>4">
@@ -200,10 +200,6 @@
           /**/
           this.getGiftList();
           /**/
-          //临时测试
-         /* localStorage.setItem('number','');
-          localStorage.setItem('sopenid','');
-          sessionStorage.setItem('userInfo','');*/
         },
       beforeRouteEnter (to, from, next) {
         Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{
