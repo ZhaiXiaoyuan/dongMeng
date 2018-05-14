@@ -100,7 +100,22 @@
           }
         },
       },
+      methods:{
+        getScrollTop:function () {
+          let sTop=null;
+          if (document.compatMode == "BackCompat")
+          {
+            sTop = document.body.scrollTop;
+          }
+          else
+          {
+            sTop = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
+          }
+          return sTop;
+        }
+      },
         mounted: function () {
+          let that=this;
             if(!this.page){
                 return;
             }
@@ -110,7 +125,7 @@
             if(this.page.isLoading || this.page.isFinished) {
               return;
             }else{
-              var winTop = document.documentElement.scrollTop;//当前滚动条的高度
+              var winTop = that.getScrollTop();//当前滚动条的高度
               var docHeight = this.document.scrollHeight;   //页面总高度
               var winHeight = this.window.innerHeight ;     //窗口高度
               /*触发高度比*/

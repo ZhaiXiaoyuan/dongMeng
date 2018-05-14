@@ -58,8 +58,8 @@
               this.itemList = [];
             }
             let pager={
-              pageNumber:this.pager.pageNum,
-              pageSize:this.pager.pageSize
+              'pager.pageNumber':this.pager.pageNum,
+              'pager.pageSize':this.pager.pageSize
             }
             let params={
               ...Vue.tools.sessionInfo(),

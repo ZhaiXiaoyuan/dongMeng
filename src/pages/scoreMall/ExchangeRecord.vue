@@ -3,7 +3,7 @@
     <div class="exchange-record">
       <div class="survey-panel">
         <p>已兑换福利（个）</p>
-        <p>{{exchangedCount}}</p>
+        <div class="count">{{exchangedCount}}</div>
         <div  class="cm-btn btn link-btn" @click="checkUserInfo(()=>{$router.push({ name: 'giftList', params: { }})})">礼品商城</div>
       </div>
       <div class="list-panel">
@@ -84,8 +84,8 @@
               this.recordList = [];
             }
             let pager={
-              pageNumber:this.pager.pageNum,
-              pageSize:this.pager.pageSize
+              'pager.pageNumber':this.pager.pageNum,
+              'pager.pageSize':this.pager.pageSize
             }
             let params={
               ...Vue.tools.sessionInfo(),

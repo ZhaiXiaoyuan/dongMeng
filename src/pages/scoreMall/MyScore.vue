@@ -1,5 +1,6 @@
 <!--我的积分-->
 <template>
+  <mt-loadmore :top-method="loadTop" ref="loadmore">
     <div class="my-score">
       <div class="survey-panel">
         <div class="panel-bd">
@@ -38,6 +39,7 @@
       </div>
       <scroll-load :page="pager" @scrolling="getList()"></scroll-load>
     </div>
+  </mt-loadmore>
 </template>
 
 
@@ -51,14 +53,13 @@
 
     export default {
         components: {
-
         },
         data: function () {
             return {
               sumData:{},
               pager:{
                 pageNum: 1,
-                pageSize: 20,
+                pageSize: 10,
                 isLoading:false,
                 isFinished:false
               },
@@ -66,6 +67,7 @@
               score:0,
               listType:'income',//列表类型，income:收入,cost:支出
               totals:null,
+              refreshTips:null,
             }
         },
         computed: {},
@@ -77,8 +79,8 @@
               this.entryList = [];
             }
             let pager={
-              pageNumber:this.pager.pageNum,
-              pageSize:this.pager.pageSize
+              'pager.pageNumber':this.pager.pageNum,
+              'pager.pageSize':this.pager.pageSize
             }
             let params={
               ...Vue.tools.sessionInfo(),
@@ -86,6 +88,7 @@
               type:this.listType=='income'?1:0,//收入/奖励=1 | 支付/兑换=0
             }
             Vue.api.getScoreRecordList(params).then((resp)=>{
+              this.refreshTips&&this.refreshTips.onTopLoaded();
               if(resp.status=='success'){
                 let data=JSON.parse(resp.message);
                 if(isInit){
@@ -118,7 +121,19 @@
                 console.log('this.sumData:',this.sumData);
               }
             });
-          }
+          },
+          loadTop:function () {
+            this.refreshTips=this.$refs.loadmore;
+            /**/
+            this.getScore();
+            /**/
+            this.getSum();
+            /**/
+            this.getList(true);
+          },
+          loadBottom:function () {
+
+          },
         },
 
         created: function () {
@@ -130,7 +145,6 @@
           this.getSum();
           /**/
           this.getList(true);
-
         },
         route: {
            /* data: function(transition) {

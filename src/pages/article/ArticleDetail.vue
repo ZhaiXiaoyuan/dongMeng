@@ -7,6 +7,7 @@
         <div class="content-container" v-html="article.content"></div>
       </div>
       <div class="handle-btn"  @click="checkUserInfo(()=>{shareGuide()})">分享这篇好文给朋友</div>
+      <router-link :to="{ name: 'home'}" class="home-btn"><i class="icon"></i></router-link>
     </div>
 </template>
 

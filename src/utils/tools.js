@@ -204,10 +204,15 @@ export default {
           });
         },
         shareConfig:function (options) {
+          if(options.link.indexOf('?')>-1){
+            options.link+='&1='+1;
+          }else{
+            options.link+='?1='+1;
+          }
           var shareInfo={
             title: options.title,
             desc:options.desc,
-            link: options.link,
+            link: window.location.origin+'/dmjywxs/cus/auth/wxred?1='+1+'&redirect='+encodeURIComponent(options.link.replace(window.location.origin,'')),
             imgUrl: options.imgUrl,
             trigger: function (res) {
               // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回.
@@ -282,7 +287,7 @@ export default {
               }
             })
           }
-        }
+        },
       }
 
       Object.assign(Vue, Vue.tools);

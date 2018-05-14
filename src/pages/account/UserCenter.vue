@@ -97,16 +97,6 @@
               }
             })
           },
-          getUserInfo:function () {
-            Vue.api.getUserInfo({...Vue.tools.sessionInfo()}).then((resp)=>{
-              if(resp.status=='success'){
-                this.userInfo=JSON.parse(resp.message);
-                this.name=this.userInfo.username;
-              }else{
-
-              }
-            })
-          },
           signIn:function () {
             Vue.signInModal({
               callback:()=>{
@@ -121,7 +111,8 @@
         },
         mounted: function () {
           /**/
-          this.getUserInfo();
+          this.userInfo=JSON.parse(sessionStorage.getItem('userInfo'));
+          this.name=this.userInfo.username;
         },
       beforeRouteEnter (to, from, next) {
         Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{

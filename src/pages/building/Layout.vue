@@ -2,7 +2,7 @@
 <template>
     <div class="layout">
       <div class="pic-list-panel">
-        <swiper :options="swiperOption">
+        <swiper :options="swiperOption" ref="mySwiper">
           <swiper-slide v-for="(item,index) in itemList" :key="item.id">
             <div class="item-wrap">
               <div class="img-wrap" :style="{background: 'url('+item.imgUrl+') no-repeat center',backgroundSize: 'cover'}"></div>
@@ -37,6 +37,7 @@
           <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
       </div>
+      <router-link :to="{ name: 'home'}" class="home-btn"><i class="icon"></i></router-link>
     </div>
 </template>
 
@@ -57,6 +58,7 @@
         },
         data: function () {
             return {
+              index:0,
               swiperOption: {
                 direction: 'vertical',
                 slidesPerView: 1,
@@ -66,11 +68,23 @@
                   el: '.swiper-pagination',
                   clickable: true,
                 },
+                on:{
+                  transitionEnd: function(){
+                    /*console.log('index:', this.swiper.activeIndex);*/
+                    this.shareConfig();
+
+                  }.bind(this),
+                },
+
               },
               itemList:[]
             }
         },
-        computed: {},
+      computed: {
+        swiper() {
+          return this.$refs.mySwiper.swiper
+        }
+      },
         watch: {},
         methods: {
           getLayoutInfo:function () {
@@ -80,9 +94,22 @@
             Vue.api.getLayoutInfo(params).then((resp)=>{
               if(resp.status=='success'){
                 this.itemList=JSON.parse(resp.message);
+                this.shareConfig();
               }
             })
           },
+          shareConfig:function () {
+            let item=this.itemList[this.swiper.activeIndex];
+            /*微信分享配置*/
+            if(item){
+              Vue.tools.shareConfig({
+                title:item.name,
+                desc:item.remark,
+                link:window.location.href.split('#')[0]+'#/building/layout/'+this.swiper.activeIndex,
+                imgUrl: item.imgUrl,
+              });
+            }
+          }
         },
 
         created: function () {
@@ -90,6 +117,12 @@
         mounted: function () {
           /**/
           this.getLayoutInfo();
+
+          /**/
+          this.index=this.$route.params.index;
+          if(this.index){
+            this.swiper.slideTo(this.index, 1000, false)
+          }
         },
         route: {
            /* data: function(transition) {

@@ -54,6 +54,7 @@
           <span v-if="gift.amount==gift.examount">已兑换完</span>
         </div>
       </div>
+      <router-link :to="{ name: 'home'}" class="home-btn"><i class="icon"></i></router-link>
     </div>
 </template>
 
@@ -86,6 +87,13 @@
             Vue.api.getGiftDetail(params).then((resp)=>{
               if(resp.status=='success'){
                 this.gift=JSON.parse(resp.message);
+                /*微信分享配置*/
+                Vue.tools.shareConfig({
+                  title: this.gift.name,
+                  desc:this.gift.remark,
+                  link: window.location.href,
+                  imgUrl: this.gift.imageUrl,
+                });
               }
             })
           },

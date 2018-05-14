@@ -141,7 +141,7 @@ const routes=[ {
       },
     },
     {
-      path: 'layout',
+      path: 'layout/:index?',
       name:'layout',
       component: resolve=>require(['./pages/building/Layout'],resolve),
       meta:{
@@ -177,6 +177,13 @@ const routes=[ {
   component: resolve=>require(['./pages/scoreMall/exchangeFeedback'],resolve),
   meta:{
     title:'兑换成功',
+  },
+},{
+  path: '/forbidden',
+  name: 'forbidden',
+  component: resolve=>require(['./pages/error/Forbidden'],resolve),
+  meta:{
+    title:'禁止访问',
   },
 }]
 
@@ -356,13 +363,48 @@ router.beforeEach((to, from,next) => {
   if(wrongUrlData&&wrongUrlData!=''){
     window.location.replace(url.replace(wrongUrlData,'/#/'))
   }
-  if(to.query.openid){
-    localStorage.setItem('number',to.query.openid);
-  }
   if(to.query.sopenid){
     localStorage.setItem('sopenid',to.query.sopenid);
   }
-  next();
+  if(to.query.openid){
+    localStorage.setItem('number',to.query.openid);
+  }
+
+ /* let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
+  if(!userInfo){
+    Vue.api.getUserInfo({...Vue.sessionInfo()}).then((resp)=>{
+      if(resp.status=='success'){
+        let userInfo=JSON.parse(resp.message);
+        sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
+        if(userInfo.status==20){
+          next();
+        }else{
+          router.push({name:'forbidden'});
+        }
+      }
+    })
+  }else {
+    if(userInfo.status==20){
+      next();
+    }else{
+      router.push({name:'forbidden'});
+    }
+  }*/
+
+  Vue.api.getUserInfo({...Vue.sessionInfo()}).then((resp)=>{
+    if(resp.status=='success'){
+      let userInfo=JSON.parse(resp.message);
+      sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
+      if(userInfo.status==20){
+        next();
+      }else{
+        router.push({name:'forbidden'});
+      }
+    }else{
+
+    }
+  })
+
 })
 router.afterEach((to, from) => {
   //修改页面title

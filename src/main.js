@@ -2,8 +2,10 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import vueResource from 'vue-resource'
-/*import Mint from 'mint-ui';
-import 'mint-ui/lib/style.css'*/
+/*import Mint from 'mint-ui';*/
+import { Loadmore } from 'mint-ui';
+import 'mint-ui/lib/style.css'
+
 import 'vue2-animate/dist/vue2-animate.min.css'
 import vueCookie from 'vue-cookie'
 import App from './App'
@@ -20,6 +22,7 @@ Vue.config.productionTip = false
 Vue.use(vueResource);
 /*Vue.use(Mint);*/
 Vue.use(vueCookie);
+Vue.component(Loadmore.name, Loadmore);
 
 /*---安装自定义插件---*/
 Vue.use(api);
