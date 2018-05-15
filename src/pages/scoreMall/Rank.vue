@@ -183,10 +183,10 @@
           /*    this.pager.pageNum = 1;*/
               this.entryList = [];
             }
-          /*  let pager={
+            let pager={
            'pager.pageNumber':this.pager.pageNum,
            'pager.pageSize':this.pager.pageSize
-            }*/
+            }
             let params={
               ...Vue.tools.sessionInfo(),
             /*  ...pager,*/
