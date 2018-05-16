@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import MtaH5 from 'mta-h5-analysis';
 /*import Home from './pages/Home.vue'
 import GiftList from './pages/scoreMall/GiftList.vue'
 import GiftDetail from './pages/scoreMall/GiftDetail.vue'
@@ -396,6 +397,7 @@ router.beforeEach((to, from,next) => {
       let userInfo=JSON.parse(resp.message);
       sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
       if(userInfo.status==20){
+        MtaH5.pgv();
         next();
       }else{
         router.push({name:'forbidden'});
