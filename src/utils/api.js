@@ -114,11 +114,11 @@ export default {
           params: params
         });
       },
-      //获取美文分享规则
+      //首页奖励规则-美文分享+推荐买房规则
       getAwardRule:function (params) {
         return Vue.http.ajax({
           method: 'post',
-          url: basicUrl+'/mk/recus/sarule',
+          url: basicUrl+'/mk/recus/allrule',
           params: params
         });
       },
@@ -186,14 +186,14 @@ export default {
           params: params
         });
       },
-      //获取推荐奖励规则
+   /*   //获取推荐奖励规则
       getRecommendAwardRule:function (params) {
         return Vue.http.ajax({
           method: 'post',
           url: basicUrl+'/mk/recus/rbrule',
           params: params
         });
-      },
+      },*/
       //楼盘风采-楼盘概况分页查询
       getBuildingSurvey:function (params) {
         return Vue.http.ajax({
