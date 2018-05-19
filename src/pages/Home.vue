@@ -21,7 +21,7 @@
               <i class="icon consultant-icon"></i>
               <p class="text">置业顾问</p>
             </router-link>
-            <a class="item" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI2MzgwODU1MA==&scene=110#wechat_redirect">
+            <a class="item" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU5MjQ0NTI1NA==&scene=110#wechat_redirect">
               <i class="icon wechat-icon"></i>
               <p class="text">关注公众号</p>
             </a>
