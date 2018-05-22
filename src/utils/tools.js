@@ -134,7 +134,7 @@ export default {
         },
         sessionInfo:function () {
           let timestamp=this.genTimestamp();
-          let number=localStorage.getItem('number');
+          let number=Vue.cookie.get('number');
           if(!number||number==''){//如果openid为空，则重新进行默认授权
             if(localStorage.getItem('authorizing')!='true'){
               localStorage.setItem('authorizing','true');

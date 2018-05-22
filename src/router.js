@@ -368,7 +368,7 @@ router.beforeEach((to, from,next) => {
     localStorage.setItem('sopenid',to.query.sopenid);
   }
   if(to.query.openid){
-    localStorage.setItem('number',to.query.openid);
+    Vue.cookie.set('number',to.query.openid,{ expires: '12h' });
   }
 
  /* let userInfo=sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):null;
@@ -397,8 +397,7 @@ router.beforeEach((to, from,next) => {
       let userInfo=JSON.parse(resp.message);
       sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
       if(userInfo.status==20){
-        //临时功能注释
-      /*  MtaH5.pgv();*/
+        MtaH5.pgv();
         next();
       }else{
         router.push({name:'forbidden'});
