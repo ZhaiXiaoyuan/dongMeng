@@ -136,14 +136,11 @@ export default {
           let timestamp=this.genTimestamp();
           let number=Vue.cookie.get('number');
           if(!number||number==''){//如果openid为空，则重新进行默认授权
-            if(localStorage.getItem('authorizing')!='true'){
-              localStorage.setItem('authorizing','true');
+            if(Vue.cookie.get('authorizing')!='true'){
+              Vue.cookie.set('authorizing','true',{ expires: '10s' });
               this.toAuth(1,window.location.href);
             }
-          }else{
-            localStorage.setItem('authorizing','false');
           }
-
 
           return{
             timeStamp:timestamp,
