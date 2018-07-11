@@ -259,6 +259,14 @@ export default {
           params: params
         });
       },
+      //获取最新文章数-12小时
+      getNewArticleCount:function (params) {
+        return Vue.http.ajax({
+          method: 'post',
+          url: basicUrl+'/cus/info/gnac',
+          params: params
+        });
+      },
     }
   },
 

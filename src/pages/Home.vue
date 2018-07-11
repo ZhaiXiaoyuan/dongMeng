@@ -56,6 +56,7 @@
             </div>
             <router-link :to="{ name: 'articleList', params: {}}"  class="item item-sm">
               <span class="icon-wrap"> <i class="icon share-icon"></i></span>
+              <span class="count" v-if="newArticleCount">{{newArticleCount}}</span>
               <p class="text">分享美文</p>
             </router-link>
           </div>
@@ -164,6 +165,7 @@
               isFull:false,//true:已完善资料，false:未完善资料
               canSign:false,//true:可签到，false:已签到
               giftList:[],
+              newArticleCount:0,
             }
         },
         computed: {},
@@ -192,6 +194,16 @@
               }
             });
           },
+          getNewArticleCount:function () {
+            let params={
+              ...Vue.tools.sessionInfo(),
+            }
+            Vue.api.getNewArticleCount(params).then((resp)=>{
+              if(resp.status=='success'){
+                this.newArticleCount=JSON.parse(resp.message);
+              }
+            })
+          }
         },
 
         created: function () {
@@ -200,6 +212,7 @@
           /**/
           this.getGiftList();
           /**/
+          this.getNewArticleCount();
         },
       beforeRouteEnter (to, from, next) {
         Vue.api.getHomeData({...Vue.tools.sessionInfo()}).then((resp)=>{
