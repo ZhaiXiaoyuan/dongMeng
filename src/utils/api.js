@@ -40,8 +40,8 @@ export default {
     }
 
     /**/
-   /* let basicUrl=process.env.NODE_ENV=='development'?'/api':'http://www.grfame.com/dmjywxs';*/
-    let basicUrl=process.env.NODE_ENV=='development'?'/api':'http://www.mk-dingneng.com/dmjywxs';
+    let basicUrl=process.env.NODE_ENV=='development'?'/api':'http://www.grfame.com/dmjywxs';
+   // let basicUrl=process.env.NODE_ENV=='development'?'/api':'http://www.mk-dingneng.com/dmjywxs';
     Vue.api={
       //首页数据
       getHomeData:function (params) {
